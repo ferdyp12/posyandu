@@ -18,6 +18,7 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets'); ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <?= $this->renderSection('css'); ?>
 </head>
 
 <body id="page-top">
@@ -82,7 +83,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="<?= route_to('Auth::logout'); ?>">Logout</a>
                 </div>
             </div>
         </div>
