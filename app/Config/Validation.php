@@ -41,4 +41,18 @@ class Validation extends BaseConfig
     //--------------------------------------------------------------------
     // Rules
     //--------------------------------------------------------------------
+    public $login = [
+        'username' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Username dibutuhkan.',
+            ],
+        ],
+        'password' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Password dibutuhkan.',
+            ],
+        ],
+    ];
 }
