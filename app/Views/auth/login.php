@@ -1,5 +1,3 @@
-<?php $data['title'] = 'Lele'; ?>
-
 <?= $this->extend('templates/auth/index'); ?>
 
 <?= $this->section('content'); ?>
