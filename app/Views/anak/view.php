@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <input type="text" class="custom-select" id="jenis_kelamin" value="<?= $anak->jenis_kelamin; ?>" disabled>
+                        <input type="text" class="form-select" id="jenis_kelamin" value="<?= $anak->jenis_kelamin; ?>" disabled>
                     </div>
                 </div>
             </div>
