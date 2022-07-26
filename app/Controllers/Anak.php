@@ -2,14 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use App\Models\AnakModel;
-
-class Anak extends BaseController
+class Anak extends \App\Controllers\BaseController
 {
     public function __construct()
     {
-        $this->modelAnak = new AnakModel();
+        $this->modelAnak = new \App\Models\AnakModel();
     }
 
     public function index()

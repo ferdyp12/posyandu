@@ -38,7 +38,7 @@
                                     <td>
                                         <a class="btn-sm btn-info" href="<?= route_to('Anak::show', $row->id_anak); ?>" data-toggle="tooltip" title="View"><i class="fas fa-eye"></i></a>
                                         <a class="btn-sm btn-warning" href="<?= route_to('Anak::edit', $row->id_anak); ?>" data-toggle="tooltip" title="Update"><i class="fas fa-pen" title="Update"></i></a>
-                                        <a data-id="<?= $row->id_anak; ?>" class="btn-sm btn-danger delete-anak" href="#" data-toggle="tooltip" title="Delete"><i class="fas fa-trash" title="Delete"></i></a>
+                                        <a data-id="<?= $row->id_anak; ?>" class="btn-sm btn-danger delete-anak" href="" data-toggle="tooltip" title="Delete"><i class="fas fa-trash" title="Delete"></i></a>
                                     </td>
                                 </tr>
                             <?php $nomor++;
