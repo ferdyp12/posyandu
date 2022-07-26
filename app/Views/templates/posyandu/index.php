@@ -96,8 +96,17 @@
     <!-- Core plugin JavaScript-->
     <script src="<?= base_url('assets'); ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js" integrity="sha256-Tn7eZhp9hdAfPMZi/rV4rBB21f9sKU/oE4WM8ru62nA=" crossorigin="anonymous"></script>
+
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets'); ?>/js/sb-admin-2.min.js"></script>
+
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
     <?= $this->renderSection('script'); ?>
 

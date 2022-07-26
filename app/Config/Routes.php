@@ -41,6 +41,12 @@ $routes->post('/login', 'Auth::login');
 $routes->get('/logout', 'Auth::logout');
 // Dashboard
 $routes->get('/', 'Dashboard::index');
+// Anak
+$routes->get('/anak', 'Anak::index');
+$routes->match(['get', 'post'], '/anak/create', 'Anak::create');
+$routes->get('/anak/(:segment)/view', 'Anak::show/$1');
+$routes->match(['get', 'put'], '/anak/(:segment)/edit', 'Anak::edit/$1');
+$routes->delete('/anak', 'Anak::delete');
 
 /*
  * --------------------------------------------------------------------
