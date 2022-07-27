@@ -104,4 +104,56 @@ class Validation extends BaseConfig
             ],
         ],
     ];
+
+    public $anak = [
+        'nama' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama tidak boleh kosong.',
+            ],
+        ],
+        'nik' => [
+            'rules'  => 'required|max_length[16]',
+            'errors' => [
+                'required' => 'Nomor Induk Kewarganegaraan tidak boleh kosong.',
+                'max_length' => 'Maksimal 16 angka.',
+            ],
+        ],
+        'anak_ke' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Anak yang ke- tidak boleh kosong.',
+            ],
+        ],
+        'tempat_lahir' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tempat Lahir tidak boleh kosong.',
+            ],
+        ],
+        'tanggal_lahir' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tanggal Lahir tidak boleh kosong.',
+            ],
+        ],
+        'berat_badan_lahir' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Berat Badan Lahir tidak boleh kosong.'
+            ],
+        ],
+        'tinggi_badan_lahir' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tinggi Badan Lahir tidak boleh kosong.'
+            ],
+        ],
+        'jenis_kelamin' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Jenis Kelamin tidak boleh kosong.'
+            ],
+        ],
+    ];
 }

@@ -25,7 +25,7 @@ class Anak extends \App\Controllers\BaseController
         $anak = $this->modelAnak->find($id_anak);
 
         $data = [
-            'title' => 'Lihat Data Anak ' . $anak->nama_anak,
+            'title' => 'Lihat Data Anak ' . $anak->nama,
             'anak' => $anak
         ];
 
@@ -35,14 +35,25 @@ class Anak extends \App\Controllers\BaseController
     public function create()
     {
         if ($this->request->isAJAX()) {
+            if ($this->validate('anak') === FALSE) {
+                $data = [
+                    'status' => false,
+                    'message' => 'Validasi error',
+                    'errors' => $this->validator->getErrors()
+                ];
+
+                return $this->response->setJSON($data);
+            }
+
             $data = [
                 'id_ayah' => $this->request->getVar('id_ayah'),
-                'nama_anak' => $this->request->getVar('nama_anak'),
-                'nik_anak' => $this->request->getVar('nik_anak'),
+                'nama' => $this->request->getVar('nama'),
+                'nik' => $this->request->getVar('nik'),
+                'anak_ke' => $this->request->getVar('anak_ke'),
                 'tempat_lahir' => $this->request->getVar('tempat_lahir'),
-                'tgl_lahir' => $this->request->getVar('tgl_lahir'),
-                'bb_lahir' => $this->request->getVar('bb_lahir'),
-                'tb_lahir' => $this->request->getVar('tb_lahir'),
+                'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
+                'berat_badan_lahir' => $this->request->getVar('berat_badan_lahir'),
+                'tinggi_badan_lahir' => $this->request->getVar('tinggi_badan_lahir'),
                 'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             ];
 
@@ -63,24 +74,35 @@ class Anak extends \App\Controllers\BaseController
         $anak = $this->modelAnak->find($id_anak);
 
         if ($this->request->isAJAX()) {
+            if ($this->validate('anak') === FALSE) {
+                $data = [
+                    'status' => false,
+                    'message' => 'Validasi error',
+                    'errors' => $this->validator->getErrors()
+                ];
+
+                return $this->response->setJSON($data);
+            }
+
             $data = [
                 'id_ayah' => $this->request->getVar('id_ayah'),
-                'nama_anak' => $this->request->getVar('nama_anak'),
-                'nik_anak' => $this->request->getVar('nik_anak'),
+                'nama' => $this->request->getVar('nama'),
+                'nik' => $this->request->getVar('nik'),
+                'anak_ke' => $this->request->getVar('anak_ke'),
                 'tempat_lahir' => $this->request->getVar('tempat_lahir'),
-                'tgl_lahir' => $this->request->getVar('tgl_lahir'),
-                'bb_lahir' => $this->request->getVar('bb_lahir'),
-                'tb_lahir' => $this->request->getVar('tb_lahir'),
+                'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
+                'berat_badan_lahir' => $this->request->getVar('berat_badan_lahir'),
+                'tinggi_badan_lahir' => $this->request->getVar('tinggi_badan_lahir'),
                 'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             ];
 
             $this->modelAnak->update($anak->id_anak, $data);
 
-            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $anak->nama_anak . ' berhasil diubah!']);
+            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $anak->nama . ' berhasil diubah!']);
         }
 
         $data = [
-            'title' => 'Edit Data Anak ' . $anak->nama_anak,
+            'title' => 'Edit Data Anak ' . $anak->nama,
             'anak' => $anak
         ];
 
@@ -92,5 +114,18 @@ class Anak extends \App\Controllers\BaseController
         $this->modelAnak->delete($this->request->getVar('id_anak'));
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
+    }
+
+    public function validation()
+    {
+        if ($this->validate('anak') === FALSE) {
+            $data = [
+                'status' => false,
+                'message' => 'Validasi error',
+                'errors' => $this->validator->getErrors()
+            ];
+
+            return $this->response->setJSON($data);
+        }
     }
 }

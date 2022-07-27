@@ -31,9 +31,9 @@
                             foreach ($anak as $row) : ?>
                                 <tr>
                                     <th><?= $nomor; ?></th>
-                                    <td><?= $row->nama_anak; ?></td>
-                                    <td><?= $row->nik_anak; ?></td>
-                                    <td><?= $row->tempat_lahir . ', ' . $row->tgl_lahir; ?></td>
+                                    <td><?= $row->nama; ?></td>
+                                    <td><?= $row->nik; ?></td>
+                                    <td><?= $row->tempat_lahir . ', ' . $row->tanggal_lahir; ?></td>
                                     <td><?= $row->jenis_kelamin; ?></td>
                                     <td>
                                         <a class="btn-sm btn-info" href="<?= route_to('Anak::show', $row->id_anak); ?>" data-toggle="tooltip" title="View"><i class="fas fa-eye"></i></a>

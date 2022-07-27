@@ -26,16 +26,74 @@
 <?= $this->section('script'); ?>
 <script>
     $('#id_ayah').val(<?= $anak->id_ayah; ?>)
-    $('#nama_anak').val('<?= $anak->nama_anak; ?>')
-    $('#nik_anak').val('<?= $anak->nik_anak; ?>')
+    $('#nama').val('<?= $anak->nama; ?>')
+    $('#nik').val('<?= $anak->nik; ?>')
+    $('#anak_ke').val('<?= $anak->anak_ke; ?>')
     $('#tempat_lahir').val('<?= $anak->tempat_lahir; ?>')
-    $('#tgl_lahir').val('<?= $anak->tgl_lahir; ?>')
-    $('#bb_lahir').val('<?= $anak->bb_lahir; ?>')
-    $('#tb_lahir').val('<?= $anak->tb_lahir; ?>')
+    $('#tanggal_lahir').val('<?= $anak->tanggal_lahir; ?>')
+    $('#berat_badan_lahir').val('<?= $anak->berat_badan_lahir; ?>')
+    $('#tinggi_badan_lahir').val('<?= $anak->tinggi_badan_lahir; ?>')
     $('#jenis_kelamin').val('<?= $anak->jenis_kelamin; ?>')
 
     let csrfToken = '<?= csrf_token(); ?>'
     let csrfHash = '<?= csrf_hash(); ?>'
+
+    $('.custom-select').on('change', function() {
+        $.ajax({
+            method: 'POST',
+            url: '<?= route_to('Anak::validation'); ?>',
+            data: {
+                [csrfToken]: csrfHash,
+                id_ayah: $('#id_ayah').val(),
+                jenis_kelamin: $('#jenis_kelamin').val()
+            },
+            success: function(data) {
+                if ($('#id_ayah').val() == '' || $('#jenis_kelamin').val() == '') {
+                    $.each(data.errors, function(key, value) {
+                        $('#' + key).addClass('is-invalid');
+                        $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
+                    })
+                }
+            }
+        })
+
+        if ($(this).val() != '') {
+            $(this).removeClass('is-invalid').addClass('is-valid');
+            $(this).parents('.form-group').find('#error').removeClass('invalid-feedback').html(' ')
+        }
+    })
+
+    $('#form-update-anak .form-input').on('keyup', function() {
+        $.ajax({
+            method: 'POST',
+            url: '<?= route_to('Anak::validation'); ?>',
+            data: {
+                [csrfToken]: csrfHash,
+                nama: $('#nama').val(),
+                nik: $('#nik').val(),
+                anak_ke: $('#anak_ke').val(),
+                tempat_lahir: $('#tempat_lahir').val(),
+                tanggal_lahir: $('#tanggal_lahir').val(),
+                berat_badan_lahir: $('#berat_badan_lahir').val(),
+                tinggi_badan_lahir: $('#tinggi_badan_lahir').val(),
+                jenis_kelamin: $('#jenis_kelamin').val()
+            },
+            success: function(data) {
+                if ($('#nama').val() == '' || $('#nik').val() == '' || $('#anak_ke').val() == '' || $('#tempat_lahir').val() == '' || $('#tanggal_lahir').val() == '' || $('#berat_badan_lahir').val() == '' || $('#tinggi_badan_lahir').val() == '' || $('#jenis_kelamin').val() == '') {
+                    $.each(data.errors, function(key, value) {
+                        $('#' + key).addClass('is-invalid');
+                        $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
+                    })
+                }
+            }
+        })
+
+        if ($(this).val() != '') {
+            $(this).removeClass('is-invalid').addClass('is-valid');
+            $(this).parents('.form-group').find('#error').removeClass('invalid-feedback').html(' ')
+        }
+
+    });
 
     $('#form-update-anak').on('submit', function(event) {
         event.preventDefault();
@@ -55,14 +113,15 @@
                     data: {
                         [csrfToken]: csrfHash,
                         _method: 'PUT',
-                        nama_anak: $('#nama_anak').val(),
-                        nik_anak: $('#nik_anak').val(),
+                        nama: $('#nama').val(),
+                        nik: $('#nik').val(),
+                        anak_ke: $('#anak_ke').val(),
                         id_ayah: $('#id_ayah').val(),
                         tempat_lahir: $('#tempat_lahir').val(),
-                        tgl_lahir: $('#tgl_lahir').val(),
-                        bb_lahir: $('#bb_lahir').val(),
-                        tb_lahir: $('#tb_lahir').val(),
-                        jenis_kelamin: $('#jenis_kelamin').val(),
+                        tanggal_lahir: $('#tanggal_lahir').val(),
+                        berat_badan_lahir: $('#berat_badan_lahir').val(),
+                        tinggi_badan_lahir: $('#tinggi_badan_lahir').val(),
+                        jenis_kelamin: $('#jenis_kelamin').val()
                     },
                     success: function(data) {
                         if (data.success == true) {
@@ -80,6 +139,13 @@
                                 html: data.message,
                                 icon: "error"
                             });
+
+                            $('#id_ayah').addClass('is-valid')
+
+                            $.each(data.errors, function(key, value) {
+                                $('#' + key).addClass('is-invalid');
+                                $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
+                            })
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

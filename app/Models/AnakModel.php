@@ -14,7 +14,7 @@ class AnakModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     // protected $protectFields    = true;
-    protected $allowedFields    = ['id_ayah', 'nama_anak', 'nik_anak', 'tempat_lahir', 'tgl_lahir', 'bb_lahir', 'tb_lahir', 'jenis_kelamin'];
+    protected $allowedFields    = ['id_ayah', 'nama', 'nik', 'anak_ke', 'tempat_lahir', 'tanggal_lahir', 'berat_badan_lahir', 'tinggi_badan_lahir', 'jenis_kelamin'];
 
     // Dates
     protected $useTimestamps = false;

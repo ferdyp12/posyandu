@@ -15,12 +15,12 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="nama_anak">Nama Anak</label>
-                        <input type="text" class="form-control" id="nama_anak" value="<?= $anak->nama_anak; ?>" disabled>
+                        <label for="nama">Nama Anak</label>
+                        <input type="text" class="form-control" id="nama" value="<?= $anak->nama; ?>" disabled>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="nik_anak">NIK Anak</label>
-                        <input type="text" class="form-control" id="nik_anak" value="<?= $anak->nik_anak; ?>" disabled>
+                        <label for="nik">NIK Anak</label>
+                        <input type="text" class="form-control" id="nik" value="<?= $anak->nik; ?>" disabled>
                     </div>
                 </div>
                 <div class="form-row">
@@ -35,13 +35,13 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="tgl_lahir">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tgl_lahir" value="<?= $anak->tgl_lahir; ?>" disabled>
+                        <label for="tanggal_lahir">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="tanggal_lahir" value="<?= $anak->tanggal_lahir; ?>" disabled>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="bb_lahir">Berat Badan Lahir</label>
+                        <label for="berat_badan_lahir">Berat Badan Lahir</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="bb_lahir" value="<?= $anak->bb_lahir; ?>" disabled>
+                            <input type="text" class="form-control" id="berat_badan_lahir" value="<?= $anak->berat_badan_lahir; ?>" disabled>
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Kg</div>
                             </div>
@@ -50,9 +50,9 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="tb_lahir">Tinggi Badan Lahir</label>
+                        <label for="tinggi_badan_lahir">Tinggi Badan Lahir</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="tb_lahir" value="<?= $anak->tb_lahir; ?>" disabled>
+                            <input type="text" class="form-control" id="tinggi_badan_lahir" value="<?= $anak->tinggi_badan_lahir; ?>" disabled>
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Cm</div>
                             </div>
