@@ -17,6 +17,10 @@ class CreateAyah extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '192',
             ],
+            'kk' => [
+                'type' => 'VARCHAR',
+                'constraint' => '16',
+            ],
             'nik' => [
                 'type' => 'VARCHAR',
                 'constraint' => '16',

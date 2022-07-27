@@ -25,6 +25,10 @@ class CreateAnak extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '16',
             ],
+            'anak_ke' => [
+                'type' => 'VARCHAR',
+                'constraint' => '2',
+            ],
             'tempat_lahir' => [
                 'type' => 'VARCHAR',
                 'constraint' => '64',

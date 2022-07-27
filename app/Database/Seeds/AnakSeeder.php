@@ -19,8 +19,9 @@ class AnakSeeder extends Seeder
             }
             $data = [
                 'id_ayah' => $i + 1,
-                'nama_anak' => $faker->name($gender),
-                'nik_anak' => $faker->randomNumber(9),
+                'nama' => $faker->name($gender),
+                'nik' => $faker->randomNumber(9),
+                'anak_ke' => rand(1, 9),
                 'tempat_lahir' => $faker->city,
                 'tgl_lahir' => $faker->date('Y-m-d', 'now'),
                 'bb_lahir' => $faker->randomFloat(null, 1, 5),

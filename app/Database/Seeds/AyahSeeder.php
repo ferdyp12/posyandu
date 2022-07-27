@@ -12,12 +12,12 @@ class AyahSeeder extends Seeder
 
         for ($i = 0; $i < 35; $i++) {
             $data = [
-                'nama_ayah' => $faker->name('male'),
-                'nik_ayah' => $faker->randomNumber(9),
-                'no_telp_ayah' => $faker->phoneNumber,
-                'alamat_ayah' => $faker->address,
-                'rw_ayah' => '00' . $faker->randomNumber(1),
-                'rt_ayah' => '00' . $faker->randomNumber(1),
+                'nama' => $faker->name('male'),
+                'nik' => $faker->randomNumber(9),
+                'no_telp' => $faker->phoneNumber,
+                'alamat' => $faker->address,
+                'rw' => '00' . $faker->randomNumber(1),
+                'rt' => '00' . $faker->randomNumber(1),
             ];
             $this->db->table('ayah')->insert($data);
         }

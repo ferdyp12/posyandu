@@ -25,6 +25,6 @@ class CreateIbu extends Migration
 
     public function down()
     {
-        $this->forge->createTable('ibu');
+        $this->forge->dropTable('ibu');
     }
 }

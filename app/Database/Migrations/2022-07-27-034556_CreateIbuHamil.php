@@ -46,11 +46,11 @@ class CreateIbuHamil extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id_ibu_hamil');
-        $this->forge->createTable('ibu');
+        $this->forge->createTable('ibu_hamil');
     }
 
     public function down()
     {
-        $this->forge->dropTable('ibu');
+        $this->forge->dropTable('ibu_hamil');
     }
 }

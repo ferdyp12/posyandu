@@ -13,14 +13,14 @@ class CreatePosyandu extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'nama_posyandu' => [
+            'nama' => [
                 'type' => 'VARCHAR',
                 'constraint' => '32',
             ],
-            'alamat_posyandu' => [
+            'alamat' => [
                 'type' => 'TEXT'
             ],
-            'rt_posyandu' => [
+            'rt' => [
                 'type' => 'VARCHAR',
                 'constraint' => '3',
             ],
