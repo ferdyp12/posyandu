@@ -9,19 +9,19 @@ class JenisImunisasiSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['nama' => 'Hepatitis B', 'singkatan' => 'HB'],
-            ['nama' => 'BCG', 'singkatan' => 'BCG'],
-            ['nama' => 'MR', 'singkatan' => 'Campak - Rumbella (MR)'],
-            ['nama' => 'MR 2', 'singkatan' => 'Campak - Rumbella (MR) Lanjutan'],
-            ['nama' => 'IPV', 'singkatan' => 'Polio Suntik (IPV)'],
-            ['nama' => 'DPT 1', 'singkatan' => 'DPT-HB-Hib 1'],
-            ['nama' => 'DPT 2', 'singkatan' => 'DPT-HB-Hib 2'],
-            ['nama' => 'DPT 3', 'singkatan' => 'DPT-HB-Hib 3'],
-            ['nama' => 'DPT 4', 'singkatan' => 'DPT-HB-Hib (Lanjutan)'],
-            ['nama' => 'PT 1', 'singkatan' => 'Polio Tetes 1'],
-            ['nama' => 'PT 2', 'singkatan' => 'Polio Tetes 2'],
-            ['nama' => 'PT 3', 'singkatan' => 'Polio Tetes 3'],
-            ['nama' => 'PT 4', 'singkatan' => 'Polio Tetes 4']
+            ['singkatan' => 'Hepatitis B', 'nama' => 'HB'],
+            ['singkatan' => 'BCG', 'nama' => 'BCG'],
+            ['singkatan' => 'MR', 'nama' => 'Campak - Rumbella (MR)'],
+            ['singkatan' => 'MR 2', 'nama' => 'Campak - Rumbella (MR) Lanjutan'],
+            ['singkatan' => 'IPV', 'nama' => 'Polio Suntik (IPV)'],
+            ['singkatan' => 'DPT 1', 'nama' => 'DPT-HB-Hib 1'],
+            ['singkatan' => 'DPT 2', 'nama' => 'DPT-HB-Hib 2'],
+            ['singkatan' => 'DPT 3', 'nama' => 'DPT-HB-Hib 3'],
+            ['singkatan' => 'DPT 4', 'nama' => 'DPT-HB-Hib (Lanjutan)'],
+            ['singkatan' => 'PT 1', 'nama' => 'Polio Tetes 1'],
+            ['singkatan' => 'PT 2', 'nama' => 'Polio Tetes 2'],
+            ['singkatan' => 'PT 3', 'nama' => 'Polio Tetes 3'],
+            ['singkatan' => 'PT 4', 'nama' => 'Polio Tetes 4']
         ];
 
         $this->db->table('jenis_imunisasi')->insertBatch($data);
