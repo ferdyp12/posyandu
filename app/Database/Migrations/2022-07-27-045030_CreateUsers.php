@@ -13,10 +13,6 @@ class CreateUsers extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'id_petugas' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
             'username' => [
                 'type' => 'VARCHAR',
                 'constraint' => '32',

@@ -13,14 +13,6 @@ class CreatePetugas extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'id_posyandu' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
-            'id_petugas_jabatan' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
             'nama' => [
                 'type' => 'VARCHAR',
                 'constraint' => '192',

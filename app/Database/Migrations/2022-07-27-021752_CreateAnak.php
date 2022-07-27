@@ -13,10 +13,6 @@ class CreateAnak extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'id_ayah' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
             'nama' => [
                 'type' => 'VARCHAR',
                 'constraint' => '192',

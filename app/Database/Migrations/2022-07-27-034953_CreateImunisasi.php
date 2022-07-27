@@ -13,14 +13,6 @@ class CreateImunisasi extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'id_anak' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
-            'id_jenis_imunisasi' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
             'tanggal' => [
                 'type' => 'DATE'
             ],

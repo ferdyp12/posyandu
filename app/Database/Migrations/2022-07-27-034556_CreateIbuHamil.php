@@ -13,10 +13,6 @@ class CreateIbuHamil extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'id_ibu' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
             'tinggi_badan' => [
                 'type' => 'VARCHAR',
                 'constraint' => '4',

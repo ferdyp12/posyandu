@@ -13,10 +13,6 @@ class CreateTimbang extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'id_anak' => [
-                'type' => 'INT',
-                'null' => TRUE
-            ],
             'berat_badan' => [
                 'type' => 'DOUBLE'
             ],
