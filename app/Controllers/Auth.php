@@ -23,7 +23,13 @@ class Auth extends BaseController
     {
         if ($this->request->isAJAX()) {
             if ($this->validate('login') === FALSE) {
-                var_dump($this->request->getVar());
+                $data = [
+                    'status' => false,
+                    'message' => 'Validasi error',
+                    'errors' => $this->validator->getErrors()
+                ];
+
+                return $this->response->setJSON($data);
             } else {
                 $username = $this->request->getVar('username');
                 $password = $this->request->getVar('password');
@@ -32,9 +38,7 @@ class Auth extends BaseController
                 $user = $modelUser->where('username', $username)->first();
 
                 if ($user) {
-
-                    // if (!password_verify($password, $user->password)) {
-                    if ($password !== $user->password) {
+                    if (!password_verify($password, $user->password)) {
                         return $this->response->setJSON(['success' => false, 'message' => 'Password Salah!']);
                     }
 
@@ -45,6 +49,19 @@ class Auth extends BaseController
                 }
             }
         }
+    }
+
+    public function loginValidation()
+    {
+        $this->validate('login');
+
+        $data = [
+            'status' => false,
+            'message' => 'Validasi error',
+            'errors' => $this->validator->getErrors()
+        ];
+
+        return $this->response->setJSON($data);
     }
 
     public function logout()
