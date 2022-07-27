@@ -38,6 +38,7 @@ $routes->set404Override();
 // Auth
 $routes->get('/login', 'Auth::index');
 $routes->post('/login', 'Auth::login');
+$routes->post('/login-validation', 'Auth::loginValidation');
 $routes->get('/logout', 'Auth::logout');
 // Dashboard
 $routes->get('/', 'Dashboard::index');
@@ -47,6 +48,12 @@ $routes->match(['get', 'post'], '/anak/create', 'Anak::create');
 $routes->get('/anak/(:segment)/view', 'Anak::show/$1');
 $routes->match(['get', 'put'], '/anak/(:segment)/edit', 'Anak::edit/$1');
 $routes->delete('/anak', 'Anak::delete');
+// Ayah
+$routes->get('/ayah', 'Ayah::index');
+$routes->match(['get', 'post'], '/ayah/create', 'Ayah::create');
+$routes->get('/ayah/(:segment)/view', 'Ayah::show/$1');
+$routes->match(['get', 'put'], '/ayah/(:segment)/edit', 'Ayah::edit/$1');
+$routes->delete('/ayah', 'Ayah::delete');
 
 /*
  * --------------------------------------------------------------------
