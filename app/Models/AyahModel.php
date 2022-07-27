@@ -13,8 +13,8 @@ class AyahModel extends Model
     // protected $insertID         = 0;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
-    // protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $protectFields    = true;
+    protected $allowedFields    =  ['nama', 'kk', 'nik', 'no_telp', 'alamat', 'rw', 'rt'];
 
     // Dates
     protected $useTimestamps = false;

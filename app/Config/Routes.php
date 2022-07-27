@@ -54,6 +54,7 @@ $routes->match(['get', 'post'], '/ayah/create', 'Ayah::create');
 $routes->get('/ayah/(:segment)/view', 'Ayah::show/$1');
 $routes->match(['get', 'put'], '/ayah/(:segment)/edit', 'Ayah::edit/$1');
 $routes->delete('/ayah', 'Ayah::delete');
+$routes->post('/ayah-validation', 'Ayah::validation');
 
 /*
  * --------------------------------------------------------------------

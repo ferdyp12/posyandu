@@ -34,11 +34,11 @@ class CreateAyah extends Migration
             ],
             'rw' => [
                 'type' => 'VARCHAR',
-                'constraint' => '4'
+                'constraint' => '3'
             ],
             'rt' => [
                 'type' => 'VARCHAR',
-                'constraint' => '4'
+                'constraint' => '3'
             ]
         ]);
 

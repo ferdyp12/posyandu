@@ -40,13 +40,23 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="bb_lahir">Berat Badan Lahir</label>
-                        <input type="text" class="form-control" id="bb_lahir" value="<?= $anak->bb_lahir; ?>" disabled>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="bb_lahir" value="<?= $anak->bb_lahir; ?>" disabled>
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Kg</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="tb_lahir">Tinggi Badan Lahir</label>
-                        <input type="text" class="form-control" id="tb_lahir" value="<?= $anak->tb_lahir; ?>" disabled>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="tb_lahir" value="<?= $anak->tb_lahir; ?>" disabled>
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Cm</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
