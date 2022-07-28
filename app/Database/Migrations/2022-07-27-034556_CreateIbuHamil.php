@@ -36,7 +36,7 @@ class CreateIbuHamil extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '64'
             ],
-            'tgl_pemeriksaan' => [
+            'tanggal_pemeriksaan' => [
                 'type' => 'DATE'
             ],
         ]);

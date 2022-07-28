@@ -42,6 +42,14 @@
         </a>
     </li>
 
+    <!-- Nav Item - Pages Data Ibu Hamil -->
+    <li class="nav-item<?= current_url(true)->getSegment(1) == 'ibu-hamil' ? ' active' : ''; ?>">
+        <a class="nav-link" href="<?= route_to('IbuHamil::index'); ?>">
+            <i class="fas fa-fw fa-female"></i>
+            <span>Data Ibu Hamil</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
