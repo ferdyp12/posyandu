@@ -75,8 +75,8 @@
     </li>
 
     <!-- Nav Item - Pages Data Timbang -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'imunisasi' ? ' active' : ''; ?>">
-        <a class="nav-link" href="<?= route_to('Imunisasi::index'); ?>">
+    <li class="nav-item<?= current_url(true)->getSegment(1) == 'timbang' ? ' active' : ''; ?>">
+        <a class="nav-link" href="<?= route_to('Timbang::index'); ?>">
             <i class="fas fa-fw fa-balance-scale"></i>
             <span>Data Timbang</span>
         </a>

@@ -288,4 +288,37 @@ class Validation extends BaseConfig
             ],
         ]
     ];
+
+    public $timbang = [
+        'id_anak' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Anak tidak boleh kosong.'
+            ],
+        ],
+        'berat_badan' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Berat Badan tidak boleh kosong.'
+            ],
+        ],
+        'tinggi_badan' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tinggi Badan tidak boleh kosong.'
+            ],
+        ],
+        'keterangan' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Keterangan tidak boleh kosong.'
+            ],
+        ],
+        'tanggal' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tanggal tidak boleh kosong.',
+            ],
+        ]
+    ];
 }
