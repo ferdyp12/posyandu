@@ -322,6 +322,15 @@ class Validation extends BaseConfig
         ]
     ];
 
+    public $jp = [
+        'nama' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama tidak boleh kosong.',
+            ],
+        ]
+    ];
+
     public $posyandu = [
         'nama' => [
             'rules'  => 'required',

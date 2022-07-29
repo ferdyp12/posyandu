@@ -99,7 +99,7 @@
     </li>
 
     <!-- Nav Item - Pages Jabatan Petugas -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'jp' ? ' active' : ''; ?>">
+    <li class="nav-item<?= current_url(true)->getSegment(1) == 'jabatan-petugas' ? ' active' : ''; ?>">
         <a class="nav-link" href="<?= route_to('JabatanPetugas::index'); ?>">
             <i class="fas fa-fw fa-user-md"></i>
             <span>Jabatan Petugas</span>

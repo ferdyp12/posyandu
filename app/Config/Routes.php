@@ -96,6 +96,12 @@ $routes->match(['get', 'post'], '/posyandu/create', 'Posyandu::create');
 $routes->match(['get', 'put'], '/posyandu/(:segment)/edit', 'Posyandu::edit/$1');
 $routes->delete('/posyandu', 'Posyandu::delete');
 $routes->post('/posyandu-validation', 'Posyandu::validation');
+// Jabatan Petugas
+$routes->get('/jabatan-petugas', 'JabatanPetugas::index');
+$routes->match(['get', 'post'], '/jabatan-petugas/create', 'JabatanPetugas::create');
+$routes->match(['get', 'put'], '/jabatan-petugas/(:segment)/edit', 'JabatanPetugas::edit/$1');
+$routes->delete('/jabatan-petugas', 'JabatanPetugas::delete');
+$routes->post('/jabatan-petugas-validation', 'JabatanPetugas::validation');
 
 /*
  * --------------------------------------------------------------------
