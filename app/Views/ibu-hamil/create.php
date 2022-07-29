@@ -14,7 +14,7 @@
         <div class="card shadow">
             <div class="card-body">
                 <?= form_open('', ['id' => 'form-create-ibuHamil']); ?>
-                <?= view('ibu_hamil/_form'); ?>
+                <?= view('ibu-hamil/_form'); ?>
                 <?= form_close(); ?>
             </div>
         </div>

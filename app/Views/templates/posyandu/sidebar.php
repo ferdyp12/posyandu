@@ -67,8 +67,8 @@
     </li>
 
     <!-- Nav Item - Pages Data Keluarga Berencana -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'imunisasi' ? ' active' : ''; ?>">
-        <a class="nav-link" href="<?= route_to('Imunisasi::index'); ?>">
+    <li class="nav-item<?= current_url(true)->getSegment(1) == 'kb' ? ' active' : ''; ?>">
+        <a class="nav-link" href="<?= route_to('KeluargaBerencana::index'); ?>">
             <i class="fas fa-fw fa-user-friends"></i>
             <span>Data Keluarga Berencana</span>
         </a>

@@ -4,7 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
-    <a href="<?= route_to('IbuHamil::index'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-caret-left fa-sm text-white-50"></i> Kembali Ke List Ibu Hamil</a>
+    <a href="<?= route_to('KeluargaBerencana::index'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-caret-left fa-sm text-white-50"></i> Kembali Ke List Keluarga Berencana</a>
 </div>
 
 <!-- Content Row -->
@@ -13,8 +13,8 @@
     <div class="col-md-12">
         <div class="card shadow">
             <div class="card-body">
-                <?= form_open('', ['id' => 'form-update-ibuHamil']); ?>
-                <?= view('ibu-hamil/_form'); ?>
+                <?= form_open('', ['id' => 'form-update-kb']); ?>
+                <?= view('kb/_form'); ?>
                 <?= form_close(); ?>
             </div>
         </div>
@@ -25,35 +25,35 @@
 
 <?= $this->section('script'); ?>
 <script>
-    $('#nama').val('<?= $ibu_hamil->nama; ?>')
-    $('#tinggi_badan').val('<?= $ibu_hamil->tinggi_badan; ?>')
-    $('#berat_badan').val('<?= $ibu_hamil->berat_badan; ?>')
-    $('#lingkar_tangan_atas').val('<?= $ibu_hamil->lingkar_tangan_atas; ?>')
-    $('#lingkar_perut').val('<?= $ibu_hamil->lingkar_perut; ?>')
-    $('#tekanan_darah').val('<?= $ibu_hamil->tekanan_darah; ?>')
-    $('#denyut_jantung_bayi').val('<?= $ibu_hamil->denyut_jantung_bayi; ?>')
-    $('#tanggal_pemeriksaan').val('<?= $ibu_hamil->tanggal_pemeriksaan; ?>')
+    $('#nama_akseptor').val('<?= $kb->nama_akseptor; ?>')
+    $('#tanggal_lahir').val('<?= $kb->tanggal_lahir; ?>')
+    $('#nama_suami').val('<?= $kb->nama_suami; ?>')
+    $('#alamat').val('<?= $kb->alamat; ?>')
+    $('#berat_badan').val('<?= $kb->berat_badan; ?>')
+    $('#tinggi_badan').val('<?= $kb->tinggi_badan; ?>')
+    $('#tensi').val('<?= $kb->tensi; ?>')
+    $('#tanggal').val('<?= $kb->tanggal; ?>')
 
     let csrfToken = '<?= csrf_token(); ?>'
     let csrfHash = '<?= csrf_hash(); ?>'
 
-    $('#form-update-ibuHamil input').on('keyup', function() {
+    $('#form-update-kb .form-input').on('keyup', function() {
         $.ajax({
             method: 'POST',
-            url: '<?= route_to('IbuHamil::validation'); ?>',
+            url: '<?= route_to('KeluargaBerencana::validation'); ?>',
             data: {
                 [csrfToken]: csrfHash,
-                nama: $('#nama').val(),
-                tinggi_badan: $('#tinggi_badan').val(),
+                nama_akseptor: $('#nama_akseptor').val(),
+                tanggal_lahir: $('#tanggal_lahir').val(),
+                nama_suami: $('#nama_suami').val(),
+                alamat: $('#alamat').val(),
                 berat_badan: $('#berat_badan').val(),
-                lingkar_tangan_atas: $('#lingkar_tangan_atas').val(),
-                lingkar_perut: $('#lingkar_perut').val(),
-                tekanan_darah: $('#tekanan_darah').val(),
-                denyut_jantung_bayi: $('#denyut_jantung_bayi').val(),
-                tanggal_pemeriksaan: $('#tanggal_pemeriksaan').val()
+                tinggi_badan: $('#tinggi_badan').val(),
+                tensi: $('#tensi').val(),
+                tanggal: $('#tanggal').val()
             },
             success: function(data) {
-                if ($('#nama').val() == '' || $('#tinggi_badan').val() == '' || $('#berat_badan').val() == '' || $('#lingkar_tangan_atas').val() == '' || $('#lingkar_perut').val() || $('#tekanan_darah').val() || $('#denyut_jantung_bayi').val() || $('#tanggal_pemeriksaan').val() == '') {
+                if ($('#nama_akseptor').val() == '' || $('#tanggal_lahir').val() == '' || $('#nama_suami').val() == '' || $('#alamat').val() == '' || $('#berat_badan').val() || $('#tinggi_badan').val() || $('#tensi').val() || $('#tanggal').val() == '') {
                     $.each(data.errors, function(key, value) {
                         $('#' + key).addClass('is-invalid');
                         $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
@@ -69,7 +69,7 @@
 
     });
 
-    $('#form-update-ibuHamil').on('submit', function(event) {
+    $('#form-update-kb').on('submit', function(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -87,14 +87,14 @@
                     data: {
                         [csrfToken]: csrfHash,
                         _method: 'PUT',
-                        nama: $('#nama').val(),
-                        tinggi_badan: $('#tinggi_badan').val(),
+                        nama_akseptor: $('#nama_akseptor').val(),
+                        tanggal_lahir: $('#tanggal_lahir').val(),
+                        nama_suami: $('#nama_suami').val(),
+                        alamat: $('#alamat').val(),
                         berat_badan: $('#berat_badan').val(),
-                        lingkar_tangan_atas: $('#lingkar_tangan_atas').val(),
-                        lingkar_perut: $('#lingkar_perut').val(),
-                        tekanan_darah: $('#tekanan_darah').val(),
-                        denyut_jantung_bayi: $('#denyut_jantung_bayi').val(),
-                        tanggal_pemeriksaan: $('#tanggal_pemeriksaan').val()
+                        tinggi_badan: $('#tinggi_badan').val(),
+                        tensi: $('#tensi').val(),
+                        tanggal: $('#tanggal').val()
                     },
                     success: function(data) {
                         if (data.success == true) {
@@ -104,7 +104,7 @@
                                 icon: "success"
                             }).then(function() {
                                 Swal.hideLoading();
-                                window.location = '<?= route_to('IbuHamil::index'); ?>';
+                                window.location = '<?= route_to('KeluargaBerencana::index'); ?>';
                             });
                         } else {
                             Swal.fire({

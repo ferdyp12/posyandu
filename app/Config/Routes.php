@@ -76,6 +76,13 @@ $routes->match(['get', 'post'], '/jenis-imunisasi/create', 'JenisImunisasi::crea
 $routes->match(['get', 'put'], '/jenis-imunisasi/(:segment)/edit', 'JenisImunisasi::edit/$1');
 $routes->delete('/jenis-imunisasi', 'JenisImunisasi::delete');
 $routes->post('/jenis-imunisasi-validation', 'JenisImunisasi::validation');
+// Jenis Keluarga Berencana
+$routes->get('/kb', 'KeluargaBerencana::index');
+$routes->match(['get', 'post'], '/kb/create', 'KeluargaBerencana::create');
+$routes->get('/kb/(:segment)/view', 'KeluargaBerencana::show/$1');
+$routes->match(['get', 'put'], '/kb/(:segment)/edit', 'KeluargaBerencana::edit/$1');
+$routes->delete('/kb', 'KeluargaBerencana::delete');
+$routes->post('/kb-validation', 'KeluargaBerencana::validation');
 
 /*
  * --------------------------------------------------------------------

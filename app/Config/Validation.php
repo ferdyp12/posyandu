@@ -237,4 +237,55 @@ class Validation extends BaseConfig
             ],
         ]
     ];
+
+    public $kb = [
+        'nama_akseptor' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama Akseptor tidak boleh kosong.',
+            ],
+        ],
+        'tanggal_lahir' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tanggal Lahir tidak boleh kosong.',
+            ],
+        ],
+        'nama_suami' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama Suami tidak boleh kosong.',
+            ],
+        ],
+        'alamat' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Alamat tidak boleh kosong.',
+            ],
+        ],
+        'berat_badan' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Berat Badan tidak boleh kosong.'
+            ],
+        ],
+        'tinggi_badan' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tinggi Badan tidak boleh kosong.'
+            ],
+        ],
+        'tensi' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tensi tidak boleh kosong.'
+            ],
+        ],
+        'tanggal' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Tanggal tidak boleh kosong.',
+            ],
+        ]
+    ];
 }
