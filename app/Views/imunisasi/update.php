@@ -40,17 +40,11 @@
             url: '<?= route_to('Imunisasi::validation'); ?>',
             data: {
                 [csrfToken]: csrfHash,
-                nama: $('#nama').val(),
-                tinggi_badan: $('#tinggi_badan').val(),
-                berat_badan: $('#berat_badan').val(),
-                lingkar_tangan_atas: $('#lingkar_tangan_atas').val(),
-                lingkar_perut: $('#lingkar_perut').val(),
-                tekanan_darah: $('#tekanan_darah').val(),
-                denyut_jantung_bayi: $('#denyut_jantung_bayi').val(),
-                tanggal_pemeriksaan: $('#tanggal_pemeriksaan').val()
+                tanggal: $('#tanggal').val(),
+                usia_saat: $('#usia_saat').val()
             },
             success: function(data) {
-                if ($('#nama').val() == '' || $('#tinggi_badan').val() == '' || $('#berat_badan').val() == '' || $('#lingkar_tangan_atas').val() == '' || $('#lingkar_perut').val() || $('#tekanan_darah').val() || $('#denyut_jantung_bayi').val() || $('#tanggal_pemeriksaan').val() == '') {
+                if ($('#tanggal').val() == '' || $('#usia_saat').val() == '') {
                     $.each(data.errors, function(key, value) {
                         $('#' + key).addClass('is-invalid');
                         $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
