@@ -24,10 +24,10 @@ class Imunisasi extends BaseController
 
     public function show($id_imunisasi)
     {
-        $imunisasi = $this->modelImunisasi->find($id_imunisasi);
+        $imunisasi = $this->modelImunisasi->findforUpdate($id_imunisasi);
 
         $data = [
-            'title' => 'Lihat Data Imunisasi ' . $imunisasi->nama,
+            'title' => 'Lihat Data Imunisasi ' . $imunisasi->nama_anak,
             'imunisasi' => $imunisasi
         ];
 
