@@ -321,4 +321,26 @@ class Validation extends BaseConfig
             ],
         ]
     ];
+
+    public $posyandu = [
+        'nama' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama tidak boleh kosong.',
+            ],
+        ],
+        'alamat' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Alamat tidak boleh kosong.',
+            ],
+        ],
+        'rt' => [
+            'rules'  => 'required|max_length[3]',
+            'errors' => [
+                'required' => 'RT tidak boleh kosong.',
+                'max_length' => 'Maksimal 3 angka.'
+            ],
+        ],
+    ];
 }

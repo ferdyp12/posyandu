@@ -90,6 +90,12 @@ $routes->get('/timbang/(:segment)/view', 'Timbang::show/$1');
 $routes->match(['get', 'put'], '/timbang/(:segment)/edit', 'Timbang::edit/$1');
 $routes->delete('/timbang', 'Timbang::delete');
 $routes->post('/timbang-validation', 'Timbang::validation');
+// Posyandu
+$routes->get('/posyandu', 'Posyandu::index');
+$routes->match(['get', 'post'], '/posyandu/create', 'Posyandu::create');
+$routes->match(['get', 'put'], '/posyandu/(:segment)/edit', 'Posyandu::edit/$1');
+$routes->delete('/posyandu', 'Posyandu::delete');
+$routes->post('/posyandu-validation', 'Posyandu::validation');
 
 /*
  * --------------------------------------------------------------------

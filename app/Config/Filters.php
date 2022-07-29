@@ -80,7 +80,8 @@ class Filters extends BaseConfig
                 '/imunisasi', '/imunisasi/*',
                 '/jenis-imunisasi', '/jenis-imunisasi/*',
                 '/kb', '/kb/*',
-                '/timbang', '/timbang/*'
+                '/timbang', '/timbang/*',
+                '/posyandu', '/posyandu/*'
             ]
         ]
     ];
