@@ -222,4 +222,19 @@ class Validation extends BaseConfig
             ],
         ]
     ];
+
+    public $jenis_imunisasi = [
+        'nama' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama tidak boleh kosong.',
+            ],
+        ],
+        'singkatan' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Singkatan tidak boleh kosong.'
+            ],
+        ]
+    ];
 }

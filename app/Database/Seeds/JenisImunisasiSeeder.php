@@ -9,7 +9,7 @@ class JenisImunisasiSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['singkatan' => 'Hepatitis B', 'nama' => 'HB'],
+            ['singkatan' => 'HB', 'nama' => 'Hepatitis B'],
             ['singkatan' => 'BCG', 'nama' => 'BCG'],
             ['singkatan' => 'MR', 'nama' => 'Campak - Rumbella (MR)'],
             ['singkatan' => 'MR 2', 'nama' => 'Campak - Rumbella (MR) Lanjutan'],

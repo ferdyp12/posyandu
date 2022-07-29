@@ -59,8 +59,8 @@
     </li>
 
     <!-- Nav Item - Pages Data Jenis Imunisasi -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'imunisasi' ? ' active' : ''; ?>">
-        <a class="nav-link" href="<?= route_to('Imunisasi::index'); ?>">
+    <li class="nav-item<?= current_url(true)->getSegment(1) == 'jenis-imunisasi' ? ' active' : ''; ?>">
+        <a class="nav-link" href="<?= route_to('JenisImunisasi::index'); ?>">
             <i class="fas fa-fw fa-book-medical"></i>
             <span>Data Jenis Imunisasi</span>
         </a>
