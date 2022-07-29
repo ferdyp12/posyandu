@@ -12,32 +12,27 @@ class PetugasSeeder extends Seeder
             [
                 'id_posyandu' => 1,
                 'id_petugas_jabatan' => 1,
-                'nama' => 'Iko Haryanti',
-                'status' => 1
+                'nama' => 'Iko Haryanti'
             ],
             [
                 'id_posyandu' => 1,
                 'id_petugas_jabatan' => 2,
-                'nama' => 'Vera Wati',
-                'status' => 1
+                'nama' => 'Vera Wati'
             ],
             [
                 'id_posyandu' => 1,
                 'id_petugas_jabatan' => 3,
-                'nama' => 'Yeni Suhaeni',
-                'status' => 1
+                'nama' => 'Yeni Suhaeni'
             ],
             [
                 'id_posyandu' => 1,
                 'id_petugas_jabatan' => 4,
-                'nama' => 'Novi',
-                'status' => 1
+                'nama' => 'Novi'
             ],
             [
                 'id_posyandu' => 1,
                 'id_petugas_jabatan' => 4,
-                'nama' => 'Yanti',
-                'status' => 1
+                'nama' => 'Yanti'
             ]
         ];
 

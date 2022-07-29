@@ -102,6 +102,12 @@ $routes->match(['get', 'post'], '/jabatan-petugas/create', 'JabatanPetugas::crea
 $routes->match(['get', 'put'], '/jabatan-petugas/(:segment)/edit', 'JabatanPetugas::edit/$1');
 $routes->delete('/jabatan-petugas', 'JabatanPetugas::delete');
 $routes->post('/jabatan-petugas-validation', 'JabatanPetugas::validation');
+// Jabatan Petugas
+$routes->get('/petugas', 'Petugas::index');
+$routes->match(['get', 'post'], '/petugas/create', 'Petugas::create');
+$routes->match(['get', 'put'], '/petugas/(:segment)/edit', 'Petugas::edit/$1');
+$routes->delete('/petugas', 'Petugas::delete');
+$routes->post('/petugas-validation', 'Petugas::validation');
 
 /*
  * --------------------------------------------------------------------

@@ -322,6 +322,15 @@ class Validation extends BaseConfig
         ]
     ];
 
+    public $petugas = [
+        'nama' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama tidak boleh kosong.',
+            ],
+        ]
+    ];
+
     public $jp = [
         'nama' => [
             'rules'  => 'required',
