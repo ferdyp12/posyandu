@@ -19,7 +19,7 @@ class IbuHamil extends BaseController
             'pager' => $this->modelIbuHamil->pager
         ];
 
-        return view('ibu_hamil/index', $data);
+        return view('ibu-hamil/index', $data);
     }
 
     public function show($id_ibu_hamil)
@@ -31,7 +31,7 @@ class IbuHamil extends BaseController
             'ibu_hamil' => $ibu_hamil
         ];
 
-        return view('ibu_hamil/view', $data);
+        return view('ibu-hamil/view', $data);
     }
 
     public function create()
@@ -67,7 +67,7 @@ class IbuHamil extends BaseController
             'title' => 'Buat Data Ibu Hamil'
         ];
 
-        return view('ibu_hamil/create', $data);
+        return view('ibu-hamil/create', $data);
     }
 
     public function edit($id_ibu_hamil)
@@ -106,7 +106,7 @@ class IbuHamil extends BaseController
             'ibu_hamil' => $ibu_hamil
         ];
 
-        return view('ibu_hamil/update', $data);
+        return view('ibu-hamil/update', $data);
     }
 
     public function delete()

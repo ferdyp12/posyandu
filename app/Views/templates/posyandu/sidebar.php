@@ -61,7 +61,7 @@
     <!-- Nav Item - Pages Data Jenis Imunisasi -->
     <li class="nav-item<?= current_url(true)->getSegment(1) == 'imunisasi' ? ' active' : ''; ?>">
         <a class="nav-link" href="<?= route_to('Imunisasi::index'); ?>">
-            <i class="fas fa-fw fa-female"></i>
+            <i class="fas fa-fw fa-book-medical"></i>
             <span>Data Jenis Imunisasi</span>
         </a>
     </li>
@@ -69,7 +69,7 @@
     <!-- Nav Item - Pages Data Keluarga Berencana -->
     <li class="nav-item<?= current_url(true)->getSegment(1) == 'imunisasi' ? ' active' : ''; ?>">
         <a class="nav-link" href="<?= route_to('Imunisasi::index'); ?>">
-            <i class="fas fa-fw fa-female"></i>
+            <i class="fas fa-fw fa-user-friends"></i>
             <span>Data Keluarga Berencana</span>
         </a>
     </li>
@@ -77,7 +77,7 @@
     <!-- Nav Item - Pages Data Timbang -->
     <li class="nav-item<?= current_url(true)->getSegment(1) == 'imunisasi' ? ' active' : ''; ?>">
         <a class="nav-link" href="<?= route_to('Imunisasi::index'); ?>">
-            <i class="fas fa-fw fa-female"></i>
+            <i class="fas fa-fw fa-balance-scale"></i>
             <span>Data Timbang</span>
         </a>
     </li>

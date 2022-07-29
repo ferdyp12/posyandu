@@ -71,6 +71,17 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        'isLoggedIn' => ['before' => ['/', '/anak', '/anak/*', '/ayah', '/ayah/*', '/ibu-hamil', '/ibu-hamil/*', '/imunisasi', '/imunisasi/*']]
+        'isLoggedIn' => [
+            'before' => [
+                '/',
+                '/anak', '/anak/*',
+                '/ayah', '/ayah/*',
+                '/ibu-hamil', '/ibu-hamil/*',
+                '/imunisasi', '/imunisasi/*',
+                '/jenis-imunisasi', '/jenis-imunisasi/*',
+                '/kb', '/kb/*',
+                '/timbang', '/timbang/*'
+            ]
+        ]
     ];
 }
