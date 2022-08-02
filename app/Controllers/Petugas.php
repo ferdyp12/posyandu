@@ -14,7 +14,7 @@ class Petugas extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Data Petugas ' . auth()->posyandu,
+            'title' => 'Data Petugas',
             'petugas' => $this->modelPetugas->getPaginated(7),
             'pager' => $this->modelPetugas->pager
         ];
