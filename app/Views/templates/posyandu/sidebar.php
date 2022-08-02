@@ -2,9 +2,9 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= route_to('Dashboard::index'); ?>">
-        <!-- <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div> -->
+        <div class="sidebar-brand-icon rotate-n-15">
+            <img class="img-fluid" src="<?= base_url('assets'); ?>/img/logo.png" alt="logo">
+        </div>
         <div class="sidebar-brand-text mx-3">Posyandu RW <sup>05</sup></div>
     </a>
 
