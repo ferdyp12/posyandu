@@ -4,7 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
-    <a href="<?= route_to('Petugas::index'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-caret-left fa-sm text-white-50"></i> Kembali Ke List Petugas</a>
+    <a href="<?= route_to('JabatanPetugas::index'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-caret-left fa-sm text-white-50"></i> Kembali Ke List Jabatan Petugas</a>
 </div>
 
 <!-- Content Row -->
@@ -13,8 +13,8 @@
     <div class="col-md-12">
         <div class="card shadow">
             <div class="card-body">
-                <?= form_open('', ['id' => 'form-create-petugas']); ?>
-                <?= view('petugas/_form'); ?>
+                <?= form_open('', ['id' => 'form-update-user']); ?>
+                <?= view('jabatan-petugas/_form'); ?>
                 <?= form_close(); ?>
             </div>
         </div>
@@ -25,21 +25,21 @@
 
 <?= $this->section('script'); ?>
 <script>
+    $('#nama').val('<?= $jp->nama; ?>')
+
     let csrfToken = '<?= csrf_token(); ?>'
     let csrfHash = '<?= csrf_hash(); ?>'
 
-    $('#form-create-petugas input').on('keyup', function() {
+    $('#form-update-user input').on('keyup', function() {
         $.ajax({
             method: 'POST',
-            url: '<?= route_to('Petugas::validationupdate'); ?>',
+            url: '<?= route_to('JabatanPetugas::validation'); ?>',
             data: {
                 [csrfToken]: csrfHash,
-                nama: $('#nama').val(),
-                username: $('#username').val(),
-                password: $('#password').val()
+                nama: $('#nama').val()
             },
             success: function(data) {
-                if ($('#nama').val() == '' || $('#username').val() == '' || $('#password').val() == '') {
+                if ($('#nama').val() == '') {
                     $.each(data.errors, function(key, value) {
                         $('#' + key).addClass('is-invalid');
                         $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
@@ -55,7 +55,7 @@
 
     });
 
-    $('#form-create-petugas').on('submit', function(event) {
+    $('#form-update-user').on('submit', function(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -72,10 +72,8 @@
                     method: "POST",
                     data: {
                         [csrfToken]: csrfHash,
-                        nama: $('#nama').val(),
-                        id_petugas_jabatan: $('#id_petugas_jabatan').val(),
-                        username: $('#username').val(),
-                        password: $('#password').val()
+                        _method: 'PUT',
+                        nama: $('#nama').val()
                     },
                     success: function(data) {
                         if (data.success == true) {
@@ -85,7 +83,7 @@
                                 icon: "success"
                             }).then(function() {
                                 Swal.hideLoading();
-                                window.location = '<?= route_to('Petugas::index'); ?>';
+                                window.location = '<?= route_to('JabatanPetugas::index'); ?>';
                             });
                         } else {
                             Swal.fire({

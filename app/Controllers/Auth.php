@@ -42,7 +42,7 @@ class Auth extends BaseController
                         return $this->response->setJSON(['success' => false, 'message' => 'Password Salah!']);
                     }
 
-                    $this->session->set(['id_user' => $user->id_user, 'id_petugas' => isset($user->id_petugas) ? $user->id_posyandu : NULL]);
+                    $this->session->set(['id_user' => $user->id_user, 'id_petugas' => isset($user->id_petugas) ? $user->id_petugas : NULL]);
                     return $this->response->setJSON(['success' => true, 'message' => 'Login Berhasil']);
                 } else {
                     return $this->response->setJSON(['success' => false, 'message' => 'Username Tidak Terdaftar!']);

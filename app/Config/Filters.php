@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Filters\LoginFilter;
+use App\Filters\RoleFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -25,6 +26,7 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'isLoggedIn'    => LoginFilter::class,
+        'role'          => RoleFilter::class,
     ];
 
     /**
@@ -82,9 +84,27 @@ class Filters extends BaseConfig
                 '/kb', '/kb/*',
                 '/timbang', '/timbang/*',
                 '/petugas', '/petugas/*',
-                '/jabatan-petugas', '/jabatan-petugas/*',
-                '/posyandu', '/posyandu/*'
+                '/jabatan-petugas', '/jabatan-petugas/*'
             ]
-        ]
+        ],
+        'role' => [
+            'before' => [
+                '/petugas', '/petugas/*',
+                '/jabatan-petugas', '/jabatan-petugas/*'
+            ]
+        ],
+        // 'crud' => [
+        //     'before' => [
+        //         '/anak', '/anak/*', '/anak/*/delete',
+        //         '/ayah', '/ayah/*',
+        //         '/ibu-hamil', '/ibu-hamil/*',
+        //         '/imunisasi', '/imunisasi/*',
+        //         '/jenis-imunisasi', '/jenis-imunisasi/*',
+        //         '/kb', '/kb/*',
+        //         '/timbang', '/timbang/*',
+        //         '/petugas', '/petugas/*',
+        //         '/jabatan-petugas', '/jabatan-petugas/*'
+        //     ]
+        // ]
     ];
 }

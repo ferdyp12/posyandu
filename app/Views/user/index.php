@@ -4,7 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
-    <a href="<?= route_to('Petugas::index'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-caret-left fa-sm text-white-50"></i> Kembali Ke List Petugas</a>
+    <a href="<?= route_to('User::create'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Buat <?= $title; ?></a>
 </div>
 
 <!-- Content Row -->
@@ -13,9 +13,33 @@
     <div class="col-md-12">
         <div class="card shadow">
             <div class="card-body">
-                <?= form_open('', ['id' => 'form-create-petugas']); ?>
-                <?= view('petugas/_form'); ?>
-                <?= form_close(); ?>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $nomor = 1 + ($pager->getPerPage() * ($pager->getCurrentPage() - 1));
+                            foreach ($user as $row) : ?>
+                                <tr>
+                                    <th><?= $nomor; ?></th>
+                                    <td><?= $row->username; ?></td>
+                                    <td>
+                                        <a class="btn-sm btn-warning" href="<?= route_to('User::edit', $row->id_user); ?>" data-toggle="tooltip" title="Update"><i class="fas fa-pen" title="Update"></i></a>
+                                        <a data-id="<?= $row->id_user; ?>" class="btn-sm btn-danger delete-jp" href="" data-toggle="tooltip" title="Delete"><i class="fas fa-trash" title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                            <?php $nomor++;
+                            endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?= $pager->links(); ?>
+                </div>
             </div>
         </div>
     </div>
@@ -28,39 +52,14 @@
     let csrfToken = '<?= csrf_token(); ?>'
     let csrfHash = '<?= csrf_hash(); ?>'
 
-    $('#form-create-petugas input').on('keyup', function() {
-        $.ajax({
-            method: 'POST',
-            url: '<?= route_to('Petugas::validationupdate'); ?>',
-            data: {
-                [csrfToken]: csrfHash,
-                nama: $('#nama').val(),
-                username: $('#username').val(),
-                password: $('#password').val()
-            },
-            success: function(data) {
-                if ($('#nama').val() == '' || $('#username').val() == '' || $('#password').val() == '') {
-                    $.each(data.errors, function(key, value) {
-                        $('#' + key).addClass('is-invalid');
-                        $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
-                    })
-                }
-            }
-        })
-
-        if ($(this).val() != '') {
-            $(this).removeClass('is-invalid').addClass('is-valid');
-            $(this).parents('.form-group').find('#error').removeClass('invalid-feedback').html(' ')
-        }
-
-    });
-
-    $('#form-create-petugas').on('submit', function(event) {
+    $('.delete-jp').on('click', function(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
 
+        var id_user = $(this).data('id')
+
         Swal.fire({
-            title: "Apakah ada yakin?",
+            title: "Apakah anda yakin data dihapus?",
             icon: "warning",
             showCancelButton: true,
             cancelButtonText: "Tidak",
@@ -70,12 +69,11 @@
             preConfirm: () => {
                 return $.ajax({
                     method: "POST",
+                    url: '<?= route_to('User::delete'); ?>',
                     data: {
                         [csrfToken]: csrfHash,
-                        nama: $('#nama').val(),
-                        id_petugas_jabatan: $('#id_petugas_jabatan').val(),
-                        username: $('#username').val(),
-                        password: $('#password').val()
+                        _method: 'DELETE',
+                        id_user: id_user
                     },
                     success: function(data) {
                         if (data.success == true) {
@@ -85,7 +83,7 @@
                                 icon: "success"
                             }).then(function() {
                                 Swal.hideLoading();
-                                window.location = '<?= route_to('Petugas::index'); ?>';
+                                window.location = '<?= route_to('User::index'); ?>';
                             });
                         } else {
                             Swal.fire({
@@ -93,11 +91,6 @@
                                 html: data.message,
                                 icon: "error"
                             });
-
-                            $.each(data.errors, function(key, value) {
-                                $('#' + key).addClass('is-invalid');
-                                $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
-                            })
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

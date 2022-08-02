@@ -25,7 +25,10 @@ class RoleFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
+        // Kader Privilage
+        if (session('id_petugas') != 1) {
+            return redirect()->to(previous_url());
+        }
     }
 
     /**

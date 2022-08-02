@@ -4,7 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
-    <a href="<?= route_to('JabatanPetugas::create'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Buat <?= $title; ?></a>
+    <a href="<?= route_to('Petugas::create'); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Buat <?= $title; ?></a>
 </div>
 
 <!-- Content Row -->
@@ -20,6 +20,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Jabatan</th>
+                                <th>Username</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -31,8 +32,9 @@
                                     <th><?= $nomor; ?></th>
                                     <td><?= $row->nama; ?></td>
                                     <td><?= $row->jabatan; ?></td>
+                                    <td><?= $row->username; ?></td>
                                     <td>
-                                        <a class="btn-sm btn-warning" href="<?= route_to('JabatanPetugas::edit', $row->id_petugas); ?>" data-toggle="tooltip" title="Update"><i class="fas fa-pen" title="Update"></i></a>
+                                        <a class="btn-sm btn-warning" href="<?= route_to('Petugas::edit', $row->id_petugas); ?>" data-toggle="tooltip" title="Update"><i class="fas fa-pen" title="Update"></i></a>
                                         <a data-id="<?= $row->id_petugas; ?>" class="btn-sm btn-danger delete-jp" href="" data-toggle="tooltip" title="Delete"><i class="fas fa-trash" title="Delete"></i></a>
                                     </td>
                                 </tr>
@@ -71,7 +73,7 @@
             preConfirm: () => {
                 return $.ajax({
                     method: "POST",
-                    url: '<?= route_to('JabatanPetugas::delete'); ?>',
+                    url: '<?= route_to('Petugas::delete'); ?>',
                     data: {
                         [csrfToken]: csrfHash,
                         _method: 'DELETE',
@@ -85,7 +87,7 @@
                                 icon: "success"
                             }).then(function() {
                                 Swal.hideLoading();
-                                window.location = '<?= route_to('JabatanPetugas::index'); ?>';
+                                window.location = '<?= route_to('Petugas::index'); ?>';
                             });
                         } else {
                             Swal.fire({

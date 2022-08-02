@@ -328,6 +328,33 @@ class Validation extends BaseConfig
             'errors' => [
                 'required' => 'Nama tidak boleh kosong.',
             ],
+        ],
+        'username' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Username tidak boleh kosong.',
+            ],
+        ],
+        'password' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Password tidak boleh kosong.',
+            ],
+        ]
+    ];
+
+    public $petugas_update = [
+        'nama' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama tidak boleh kosong.',
+            ],
+        ],
+        'username' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Username tidak boleh kosong.',
+            ],
         ]
     ];
 
