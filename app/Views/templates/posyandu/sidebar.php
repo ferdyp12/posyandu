@@ -106,14 +106,6 @@
         </a>
     </li>
 
-    <!-- Nav Item - Pages Posyandu -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'posyandu' ? ' active' : ''; ?>">
-        <a class="nav-link" href="<?= route_to('Posyandu::index'); ?>">
-            <i class="fas fa-fw fa-home"></i>
-            <span>Posyandu</span>
-        </a>
-    </li>
-
     <!-- Nav Item - Pages User -->
     <li class="nav-item<?= current_url(true)->getSegment(1) == 'user' ? ' active' : ''; ?>">
         <a class="nav-link" href="<?= route_to('User::index'); ?>">
