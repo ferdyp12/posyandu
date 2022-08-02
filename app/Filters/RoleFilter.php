@@ -25,7 +25,12 @@ class RoleFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
+        // Sekretaris
+        if (condition) {
+            # code...
+        } elseif() { // Ben
+
+        }
     }
 
     /**
