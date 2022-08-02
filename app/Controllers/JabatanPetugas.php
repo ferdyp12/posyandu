@@ -13,6 +13,10 @@ class JabatanPetugas extends BaseController
 
     public function index()
     {
+        if (isset(auth()->id_posyandu) != NULL) {
+            $this->modelJabatanPetugas->where('id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Jabatan Petugas',
             'jp' => $this->modelJabatanPetugas->paginate(7),
