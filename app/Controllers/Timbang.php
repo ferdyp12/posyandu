@@ -14,7 +14,7 @@ class Timbang extends BaseController
     public function index()
     {
         if (auth()->id_posyandu) {
-            $this->modelTimbang->where('id_posyandu', auth()->id_posyandu);
+            $this->modelTimbang->where('timbang.id_posyandu', auth()->id_posyandu);
         }
 
         $data = [
