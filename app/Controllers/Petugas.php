@@ -9,10 +9,15 @@ class Petugas extends BaseController
     public function __construct()
     {
         $this->modelPetugas = new \App\Models\PetugasModel();
+        $this->modelUser = new \App\Models\UserModel();
     }
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelPetugas->where('petugas.id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Petugas',
             'petugas' => $this->modelPetugas->getPaginated(7),
@@ -36,10 +41,18 @@ class Petugas extends BaseController
             }
 
             $data = [
-                'nama' => $this->request->getVar('nama')
+                'nama' => $this->request->getVar('nama'),
+                'id_posyandu' => auth()->id_posyandu,
+                'id_petugas_jabatan' => $this->request->getVar('id_petugas_jabatan')
+            ];
+
+            $user = [
+                'username' => $this->request->getVar('username'),
+                'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT)
             ];
 
             $this->modelPetugas->insert($data);
+            $this->modelUser->insert($user);
 
             return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dibuat']);
         }
@@ -51,12 +64,16 @@ class Petugas extends BaseController
         return view('petugas/create', $data);
     }
 
-    public function edit($id_petugas_jabatan)
+    public function edit($id_petugas)
     {
-        $jp = $this->modelPetugas->find($id_petugas_jabatan);
+        $petugas = $this->modelPetugas->findforUpdate($id_petugas);
+
+        if ($petugas->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         if ($this->request->isAJAX()) {
-            if ($this->validate('petugas') === FALSE) {
+            if ($this->validate('petugas_update') === FALSE) {
                 $data = [
                     'status' => false,
                     'message' => 'Validasi error',
@@ -67,17 +84,27 @@ class Petugas extends BaseController
             }
 
             $data = [
-                'nama' => $this->request->getVar('nama')
+                'nama' => $this->request->getVar('nama'),
+                'id_petugas_jabatan' => $this->request->getVar('id_petugas_jabatan')
             ];
 
-            $this->modelPetugas->update($jp->id_petugas_jabatan, $data);
+            $user = [
+                'username' => $this->request->getVar('username')
+            ];
 
-            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $jp->nama . ' berhasil diubah!']);
+            if (!empty($this->request->getVar('password'))) {
+                $user['password'] = password_hash($this->request->getVar('password'), PASSWORD_BCRYPT);
+            }
+
+            $this->modelPetugas->update($petugas->id_petugas, $data);
+            $this->modelUser->update($petugas->id_user, $user);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $petugas->nama . ' berhasil diubah!']);
         }
 
         $data = [
-            'title' => 'Edit Data Petugas ' . $jp->nama,
-            'petugas' => $jp
+            'title' => 'Edit Data Petugas ' . $petugas->nama,
+            'petugas' => $petugas
         ];
 
         return view('petugas/update', $data);
@@ -85,7 +112,14 @@ class Petugas extends BaseController
 
     public function delete()
     {
-        $this->modelPetugas->delete($this->request->getVar('id_petugas_jabatan'));
+        $id_petugas = $this->request->getVar('id_petugas');
+        $petugas = $this->modelPetugas->findforUpdate($id_petugas);
+
+        if ($petugas->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelPetugas->delete($id_petugas);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }
@@ -93,6 +127,19 @@ class Petugas extends BaseController
     public function validation()
     {
         if ($this->validate('petugas') === FALSE) {
+            $data = [
+                'status' => false,
+                'message' => 'Validasi error',
+                'errors' => $this->validator->getErrors()
+            ];
+
+            return $this->response->setJSON($data);
+        }
+    }
+
+    public function validationUpdate()
+    {
+        if ($this->validate('petugas_update') === FALSE) {
             $data = [
                 'status' => false,
                 'message' => 'Validasi error',

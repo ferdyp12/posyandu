@@ -40,6 +40,7 @@ class JabatanPetugas extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama' => $this->request->getVar('nama')
             ];
 
@@ -58,6 +59,10 @@ class JabatanPetugas extends BaseController
     public function edit($id_petugas_jabatan)
     {
         $jp = $this->modelJabatanPetugas->find($id_petugas_jabatan);
+
+        if ($jp->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         if ($this->request->isAJAX()) {
             if ($this->validate('jp') === FALSE) {
@@ -89,7 +94,14 @@ class JabatanPetugas extends BaseController
 
     public function delete()
     {
-        $this->modelJabatanPetugas->delete($this->request->getVar('id_petugas_jabatan'));
+        $id_petugas_jabatan = $this->request->getVar('id_petugas_jabatan');
+        $jp = $this->modelJabatanPetugas->find($id_petugas_jabatan);
+
+        if ($jp->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelJabatanPetugas->delete($id_petugas_jabatan);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

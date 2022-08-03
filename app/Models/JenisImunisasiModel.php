@@ -10,6 +10,6 @@ class JenisImunisasiModel extends Model
     protected $primaryKey       = 'id_jenis_imunisasi';
     protected $returnType       = 'object';
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama', 'singkatan'];
+    protected $allowedFields    = ['id_posyandu', 'nama', 'singkatan'];
     protected $useTimestamps    = false;
 }

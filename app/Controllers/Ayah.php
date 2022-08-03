@@ -11,6 +11,10 @@ class Ayah extends \App\Controllers\BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelAyah->where('id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Ayah',
             'ayah' => $this->modelAyah->paginate(7),
@@ -23,6 +27,10 @@ class Ayah extends \App\Controllers\BaseController
     public function show($id_ayah)
     {
         $ayah = $this->modelAyah->find($id_ayah);
+
+        if ($ayah->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         $data = [
             'title' => 'Lihat Data Ayah ' . $ayah->nama,
@@ -46,6 +54,7 @@ class Ayah extends \App\Controllers\BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama' => $this->request->getVar('nama'),
                 'kk' => $this->request->getVar('kk'),
                 'nik' => $this->request->getVar('nik'),
@@ -71,6 +80,10 @@ class Ayah extends \App\Controllers\BaseController
     {
         $ayah = $this->modelAyah->find($id_ayah);
 
+        if ($ayah->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
         if ($this->request->isAJAX()) {
             if ($this->validate('ayah') === FALSE) {
                 $data = [
@@ -83,6 +96,7 @@ class Ayah extends \App\Controllers\BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama' => $this->request->getVar('nama'),
                 'kk' => $this->request->getVar('kk'),
                 'nik' => $this->request->getVar('nik'),
@@ -107,7 +121,14 @@ class Ayah extends \App\Controllers\BaseController
 
     public function delete()
     {
-        $this->modelAyah->delete($this->request->getVar('id_ayah'));
+        $id_ayah = $this->request->getVar('id_ayah');
+        $ayah = $this->modelAyah->find($id_ayah);
+
+        if ($ayah->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelAyah->delete($id_ayah);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

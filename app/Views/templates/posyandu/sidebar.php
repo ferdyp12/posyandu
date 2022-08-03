@@ -82,37 +82,31 @@
         </a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+    <?php if (session('id_petugas') == 1) : ?>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Lain - Lain
-    </div>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Lain - Lain
+        </div>
 
-    <!-- Nav Item - Pages Petugas -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'petugas' ? ' active' : ''; ?>">
-        <a class="nav-link" href="<?= route_to('Petugas::index'); ?>">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Petugas</span>
-        </a>
-    </li>
+        <!-- Nav Item - Pages Petugas -->
+        <li class="nav-item<?= current_url(true)->getSegment(1) == 'petugas' ? ' active' : ''; ?>">
+            <a class="nav-link" href="<?= route_to('Petugas::index'); ?>">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Petugas</span>
+            </a>
+        </li>
 
-    <!-- Nav Item - Pages Jabatan Petugas -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'jabatan-petugas' ? ' active' : ''; ?>">
-        <a class="nav-link" href="<?= route_to('JabatanPetugas::index'); ?>">
-            <i class="fas fa-fw fa-user-md"></i>
-            <span>Jabatan Petugas</span>
-        </a>
-    </li>
-
-    <!-- Nav Item - Pages User -->
-    <li class="nav-item<?= current_url(true)->getSegment(1) == 'user' ? ' active' : ''; ?>">
-        <a class="nav-link" href="<?= route_to('User::index'); ?>">
-            <i class="fas fa-fw fa-user"></i>
-            <span>User</span>
-        </a>
-    </li>
+        <!-- Nav Item - Pages Jabatan Petugas -->
+        <li class="nav-item<?= current_url(true)->getSegment(1) == 'jabatan-petugas' ? ' active' : ''; ?>">
+            <a class="nav-link" href="<?= route_to('JabatanPetugas::index'); ?>">
+                <i class="fas fa-fw fa-user-md"></i>
+                <span>Jabatan Petugas</span>
+            </a>
+        </li>
+    <?php endif; ?>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

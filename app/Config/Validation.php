@@ -158,6 +158,15 @@ class Validation extends BaseConfig
         ],
     ];
 
+    public $anak_select = [
+        'jenis_kelamin' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Jenis Kelamin tidak boleh kosong.'
+            ],
+        ],
+    ];
+
     public $ibu_hamil = [
         'nama' => [
             'rules'  => 'required',
@@ -328,6 +337,33 @@ class Validation extends BaseConfig
             'rules'  => 'required',
             'errors' => [
                 'required' => 'Nama tidak boleh kosong.',
+            ],
+        ],
+        'username' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Username tidak boleh kosong.',
+            ],
+        ],
+        'password' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Password tidak boleh kosong.',
+            ],
+        ]
+    ];
+
+    public $petugas_update = [
+        'nama' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Nama tidak boleh kosong.',
+            ],
+        ],
+        'username' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Username tidak boleh kosong.',
             ],
         ]
     ];

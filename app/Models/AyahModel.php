@@ -10,6 +10,6 @@ class AyahModel extends Model
     protected $primaryKey       = 'id_ayah';
     protected $returnType       = 'object';
     protected $protectFields    = true;
-    protected $allowedFields    =  ['nama', 'kk', 'nik', 'no_telp', 'alamat', 'rw', 'rt'];
+    protected $allowedFields    =  ['id_posyandu', 'nama', 'kk', 'nik', 'no_telp', 'alamat', 'rw', 'rt'];
     protected $useTimestamps = false;
 }

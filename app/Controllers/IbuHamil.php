@@ -13,6 +13,10 @@ class IbuHamil extends BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelIbuHamil->where('id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Ibu Hamil',
             'ibu_hamil' => $this->modelIbuHamil->paginate(7),
@@ -25,6 +29,10 @@ class IbuHamil extends BaseController
     public function show($id_ibu_hamil)
     {
         $ibu_hamil = $this->modelIbuHamil->find($id_ibu_hamil);
+
+        if ($ibu_hamil->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         $data = [
             'title' => 'Lihat Data Ibu Hamil ' . $ibu_hamil->nama,
@@ -48,6 +56,7 @@ class IbuHamil extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama' => $this->request->getVar('nama'),
                 'tinggi_badan' => $this->request->getVar('tinggi_badan'),
                 'berat_badan' => $this->request->getVar('berat_badan'),
@@ -74,6 +83,10 @@ class IbuHamil extends BaseController
     {
         $ibu_hamil = $this->modelIbuHamil->find($id_ibu_hamil);
 
+        if ($ibu_hamil->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
         if ($this->request->isAJAX()) {
             if ($this->validate('ibu_hamil') === FALSE) {
                 $data = [
@@ -86,6 +99,7 @@ class IbuHamil extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama' => $this->request->getVar('nama'),
                 'tinggi_badan' => $this->request->getVar('tinggi_badan'),
                 'berat_badan' => $this->request->getVar('berat_badan'),
@@ -111,7 +125,14 @@ class IbuHamil extends BaseController
 
     public function delete()
     {
-        $this->modelIbuHamil->delete($this->request->getVar('id_ibu_hamil'));
+        $id_ibu_hamil = $this->request->getVar('id_ibu_hamil');
+        $ibu_hamil = $this->modelIbuHamil->find($id_ibu_hamil);
+
+        if ($ibu_hamil->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelIbuHamil->delete($id_ibu_hamil);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

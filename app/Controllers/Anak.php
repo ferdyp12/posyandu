@@ -11,6 +11,10 @@ class Anak extends \App\Controllers\BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelAnak->where('id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Anak',
             'anak' => $this->modelAnak->paginate(7),
@@ -23,6 +27,10 @@ class Anak extends \App\Controllers\BaseController
     public function show($id_anak)
     {
         $anak = $this->modelAnak->find($id_anak);
+
+        if ($anak->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         $data = [
             'title' => 'Lihat Data Anak ' . $anak->nama,
@@ -46,6 +54,7 @@ class Anak extends \App\Controllers\BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'id_ayah' => $this->request->getVar('id_ayah'),
                 'nama' => $this->request->getVar('nama'),
                 'nik' => $this->request->getVar('nik'),
@@ -73,6 +82,10 @@ class Anak extends \App\Controllers\BaseController
     {
         $anak = $this->modelAnak->find($id_anak);
 
+        if ($anak->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
         if ($this->request->isAJAX()) {
             if ($this->validate('anak') === FALSE) {
                 $data = [
@@ -85,6 +98,7 @@ class Anak extends \App\Controllers\BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'id_ayah' => $this->request->getVar('id_ayah'),
                 'nama' => $this->request->getVar('nama'),
                 'nik' => $this->request->getVar('nik'),
@@ -111,7 +125,14 @@ class Anak extends \App\Controllers\BaseController
 
     public function delete()
     {
-        $this->modelAnak->delete($this->request->getVar('id_anak'));
+        $id_anak = $this->request->getVar('id_anak');
+        $anak = $this->modelAnak->find($id_anak);
+
+        if ($anak->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelAnak->delete($id_anak);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }
@@ -119,6 +140,19 @@ class Anak extends \App\Controllers\BaseController
     public function validation()
     {
         if ($this->validate('anak') === FALSE) {
+            $data = [
+                'status' => false,
+                'message' => 'Validasi error',
+                'errors' => $this->validator->getErrors()
+            ];
+
+            return $this->response->setJSON($data);
+        }
+    }
+
+    public function validationSelect()
+    {
+        if ($this->validate('anak_select') === FALSE) {
             $data = [
                 'status' => false,
                 'message' => 'Validasi error',

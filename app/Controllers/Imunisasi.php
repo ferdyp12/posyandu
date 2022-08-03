@@ -13,6 +13,10 @@ class Imunisasi extends BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelImunisasi->where('imunisasi.id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Imunisasi',
             'imunisasi' => $this->modelImunisasi->getPaginated(7),
@@ -25,6 +29,10 @@ class Imunisasi extends BaseController
     public function show($id_imunisasi)
     {
         $imunisasi = $this->modelImunisasi->findforUpdate($id_imunisasi);
+
+        if ($imunisasi->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         $data = [
             'title' => 'Lihat Data Imunisasi ' . $imunisasi->nama_anak,
@@ -48,6 +56,7 @@ class Imunisasi extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'id_anak' => $this->request->getVar('id_anak'),
                 'id_jenis_imunisasi' => $this->request->getVar('id_jenis_imunisasi'),
                 'tanggal' => $this->request->getVar('tanggal'),
@@ -70,6 +79,10 @@ class Imunisasi extends BaseController
     public function edit($id_imunisasi)
     {
         $imunisasi = $this->modelImunisasi->findforUpdate($id_imunisasi);
+
+        if ($imunisasi->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         if ($this->request->isAJAX()) {
             if ($this->validate('imunisasi') === FALSE) {
@@ -105,7 +118,14 @@ class Imunisasi extends BaseController
 
     public function delete()
     {
-        $this->modelImunisasi->delete($this->request->getVar('id_imunisasi'));
+        $id_imunisasi = $this->request->getVar('id_imunisasi');
+        $imunisasi = $this->modelImunisasi->find($id_imunisasi);
+
+        if ($imunisasi->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelImunisasi->delete($id_imunisasi);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

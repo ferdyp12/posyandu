@@ -10,12 +10,12 @@ class ImunisasiModel extends Model
     protected $primaryKey       = 'id_imunisasi';
     protected $returnType       = 'object';
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_anak', 'id_jenis_imunisasi', 'tanggal', 'keterangan', 'usia_saat'];
+    protected $allowedFields    = ['id_posyandu', 'id_anak', 'id_jenis_imunisasi', 'tanggal', 'keterangan', 'usia_saat'];
     protected $useTimestamps    = false;
 
     public function getPaginated($num)
     {
-        $this->select(['imunisasi.id_imunisasi', 'anak.nama AS nama_anak', 'jenis_imunisasi.nama AS nama_imunisasi', 'imunisasi.usia_saat', 'imunisasi.tanggal']);
+        $this->select(['imunisasi.id_imunisasi', 'imunisasi.id_posyandu', 'anak.nama AS nama_anak', 'jenis_imunisasi.nama AS nama_imunisasi', 'imunisasi.usia_saat', 'imunisasi.tanggal']);
         $this->join('anak', 'anak.id_anak = imunisasi.id_anak');
         $this->join('jenis_imunisasi', 'jenis_imunisasi.id_jenis_imunisasi = imunisasi.id_jenis_imunisasi');
         return $this->paginate($num);
