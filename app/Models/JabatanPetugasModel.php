@@ -10,6 +10,6 @@ class JabatanPetugasModel extends Model
     protected $primaryKey       = 'id_petugas_jabatan';
     protected $returnType       = 'object';
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama'];
+    protected $allowedFields    = ['id_posyandu', 'nama'];
     protected $useTimestamps    = false;
 }

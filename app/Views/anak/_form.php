@@ -45,7 +45,7 @@
     <div class="form-group col-md-3">
         <label for="berat_badan_lahir">Berat Badan Lahir</label>
         <div class="input-group">
-            <input type="number" class="form-control form-input" id="berat_badan_lahir" name="berat_badan_lahir">
+            <input type="number" step="0.01" class="form-control form-input" id="berat_badan_lahir" name="berat_badan_lahir">
             <div class="input-group-prepend">
                 <div class="input-group-text">Kg</div>
             </div>

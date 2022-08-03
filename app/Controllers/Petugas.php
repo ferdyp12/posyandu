@@ -14,6 +14,10 @@ class Petugas extends BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelPetugas->where('petugas.id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Petugas',
             'petugas' => $this->modelPetugas->getPaginated(7),
@@ -60,9 +64,13 @@ class Petugas extends BaseController
         return view('petugas/create', $data);
     }
 
-    public function edit($id_petugas_jabatan)
+    public function edit($id_petugas)
     {
-        $petugas = $this->modelPetugas->findforUpdate($id_petugas_jabatan);
+        $petugas = $this->modelPetugas->findforUpdate($id_petugas);
+
+        if ($petugas->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         if ($this->request->isAJAX()) {
             if ($this->validate('petugas_update') === FALSE) {
@@ -104,7 +112,14 @@ class Petugas extends BaseController
 
     public function delete()
     {
-        $this->modelPetugas->delete($this->request->getVar('id_petugas_jabatan'));
+        $id_petugas = $this->request->getVar('id_petugas');
+        $petugas = $this->modelPetugas->findforUpdate($id_petugas);
+
+        if ($petugas->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelPetugas->delete($id_petugas);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

@@ -13,6 +13,10 @@ class KeluargaBerencana extends BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelKeluargaBerencana->where('id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Keluarga Berencana',
             'kb' => $this->modelKeluargaBerencana->paginate(7),
@@ -25,6 +29,10 @@ class KeluargaBerencana extends BaseController
     public function show($id_kb)
     {
         $kb = $this->modelKeluargaBerencana->find($id_kb);
+
+        if ($kb->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         $data = [
             'title' => 'Lihat Data Keluarga Berencana ' . $kb->nama_akseptor,
@@ -48,6 +56,7 @@ class KeluargaBerencana extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama_akseptor' => $this->request->getVar('nama_akseptor'),
                 'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
                 'nama_suami' => $this->request->getVar('nama_suami'),
@@ -74,6 +83,10 @@ class KeluargaBerencana extends BaseController
     {
         $kb = $this->modelKeluargaBerencana->find($id_kb);
 
+        if ($kb->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
         if ($this->request->isAJAX()) {
             if ($this->validate('kb') === FALSE) {
                 $data = [
@@ -86,6 +99,7 @@ class KeluargaBerencana extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama_akseptor' => $this->request->getVar('nama_akseptor'),
                 'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
                 'nama_suami' => $this->request->getVar('nama_suami'),
@@ -111,7 +125,14 @@ class KeluargaBerencana extends BaseController
 
     public function delete()
     {
-        $this->modelKeluargaBerencana->delete($this->request->getVar('id_kb'));
+        $id_kb = $this->request->getVar('id_kb');
+        $kb = $this->modelKeluargaBerencana->find($id_kb);
+
+        if ($kb->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelKeluargaBerencana->delete($id_kb);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

@@ -49,6 +49,7 @@ $routes->get('/anak/(:segment)/view', 'Anak::show/$1');
 $routes->match(['get', 'put'], '/anak/(:segment)/edit', 'Anak::edit/$1');
 $routes->delete('/anak', 'Anak::delete');
 $routes->post('/anak-validation', 'Anak::validation');
+$routes->post('/anak-validation-select', 'Anak::validationSelect');
 // Ayah
 $routes->get('/ayah', 'Ayah::index');
 $routes->match(['get', 'post'], '/ayah/create', 'Ayah::create');

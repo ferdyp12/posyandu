@@ -13,6 +13,10 @@ class JenisImunisasi extends BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelJenisImunisasi->where('id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Jenis Imunisasi',
             'imunisasi' => $this->modelJenisImunisasi->paginate(7),
@@ -36,6 +40,7 @@ class JenisImunisasi extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'nama' => $this->request->getVar('nama'),
                 'singkatan' => $this->request->getVar('singkatan')
             ];
@@ -55,6 +60,10 @@ class JenisImunisasi extends BaseController
     public function edit($id_jenis_imunisasi)
     {
         $imunisasi = $this->modelJenisImunisasi->find($id_jenis_imunisasi);
+
+        if ($imunisasi->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         if ($this->request->isAJAX()) {
             if ($this->validate('jenis_imunisasi') === FALSE) {
@@ -87,7 +96,14 @@ class JenisImunisasi extends BaseController
 
     public function delete()
     {
-        $this->modelJenisImunisasi->delete($this->request->getVar('id_jenis_imunisasi'));
+        $id_jenis_imunisasi = $this->request->getVar('id_jenis_imunisasi');
+        $imunisasi = $this->modelJenisImunisasi->find($id_jenis_imunisasi);
+
+        if ($imunisasi->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelJenisImunisasi->delete($id_jenis_imunisasi);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

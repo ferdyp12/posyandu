@@ -10,7 +10,7 @@ class TimbangModel extends Model
     protected $primaryKey       = 'id_timbang';
     protected $returnType       = 'object';
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_anak', 'berat_badan', 'tinggi_badan', 'keterangan', 'tanggal'];
+    protected $allowedFields    = ['id_posyandu', 'id_anak', 'berat_badan', 'tinggi_badan', 'keterangan', 'tanggal'];
     protected $useTimestamps    = false;
 
     public function getPaginated($num)

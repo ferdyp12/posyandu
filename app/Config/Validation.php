@@ -157,6 +157,15 @@ class Validation extends BaseConfig
         ],
     ];
 
+    public $anak_select = [
+        'jenis_kelamin' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Jenis Kelamin tidak boleh kosong.'
+            ],
+        ],
+    ];
+
     public $ibu_hamil = [
         'nama' => [
             'rules'  => 'required',

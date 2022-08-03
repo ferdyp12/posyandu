@@ -15,7 +15,7 @@ class PetugasModel extends Model
 
     public function getPaginated($num)
     {
-        $this->select(['petugas.id_petugas', 'petugas.nama', 'petugas_jabatan.nama AS jabatan', 'users.username']);
+        $this->select(['petugas.id_petugas', 'petugas.id_posyandu', 'petugas.nama', 'petugas_jabatan.nama AS jabatan', 'users.username']);
         $this->join('posyandu', 'posyandu.id_posyandu = petugas.id_posyandu');
         $this->join('users', 'users.id_petugas = petugas.id_petugas');
         $this->join('petugas_jabatan', 'petugas_jabatan.id_petugas_jabatan = petugas.id_petugas_jabatan');
@@ -25,7 +25,7 @@ class PetugasModel extends Model
 
     public function findforUpdate($id_petugas)
     {
-        $this->select(['petugas.id_petugas', 'petugas.id_petugas_jabatan', 'petugas.nama', 'petugas_jabatan.nama AS jabatan', 'users.id_user', 'users.username']);
+        $this->select(['petugas.id_petugas', 'petugas.id_posyandu', 'petugas.id_petugas_jabatan', 'petugas.nama', 'petugas_jabatan.nama AS jabatan', 'users.id_user', 'users.username']);
         $this->join('posyandu', 'posyandu.id_posyandu = petugas.id_posyandu');
         $this->join('users', 'users.id_petugas = petugas.id_petugas');
         $this->join('petugas_jabatan', 'petugas_jabatan.id_petugas_jabatan = petugas.id_petugas_jabatan');

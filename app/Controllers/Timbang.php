@@ -13,6 +13,10 @@ class Timbang extends BaseController
 
     public function index()
     {
+        if (auth()->id_posyandu) {
+            $this->modelTimbang->where('id_posyandu', auth()->id_posyandu);
+        }
+
         $data = [
             'title' => 'Data Timbang',
             'timbang' => $this->modelTimbang->getPaginated(7),
@@ -25,6 +29,10 @@ class Timbang extends BaseController
     public function show($id_timbang)
     {
         $timbang = $this->modelTimbang->findforUpdate($id_timbang);
+
+        if ($timbang->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
 
         $data = [
             'title' => 'Lihat Data Timbang ' . $timbang->nama_anak,
@@ -48,6 +56,7 @@ class Timbang extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'id_anak' => $this->request->getVar('id_anak'),
                 'berat_badan' => $this->request->getVar('berat_badan'),
                 'tinggi_badan' => $this->request->getVar('tinggi_badan'),
@@ -71,6 +80,10 @@ class Timbang extends BaseController
     {
         $timbang = $this->modelTimbang->findforUpdate($id_timbang);
 
+        if ($timbang->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
         if ($this->request->isAJAX()) {
             if ($this->validate('timbang') === FALSE) {
                 $data = [
@@ -83,6 +96,7 @@ class Timbang extends BaseController
             }
 
             $data = [
+                'id_posyandu' => auth()->id_posyandu,
                 'berat_badan' => $this->request->getVar('berat_badan'),
                 'tinggi_badan' => $this->request->getVar('tinggi_badan'),
                 'keterangan' => $this->request->getVar('keterangan'),
@@ -104,7 +118,14 @@ class Timbang extends BaseController
 
     public function delete()
     {
-        $this->modelTimbang->delete($this->request->getVar('id_timbang'));
+        $id_timbang = $this->request->getVar('id_timbang');
+        $timbang = $this->modelIbuHamil->find($id_timbang);
+
+        if ($timbang->id_posyandu != auth()->id_posyandu) {
+            return redirect()->to(previous_url());
+        }
+
+        $this->modelTimbang->delete($id_timbang);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

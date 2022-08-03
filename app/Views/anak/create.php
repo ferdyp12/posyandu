@@ -31,18 +31,22 @@
     $('.custom-select').on('change', function() {
         $.ajax({
             method: 'POST',
-            url: '<?= route_to('Anak::validation'); ?>',
+            url: '<?= route_to('Anak::validationSelect'); ?>',
             data: {
                 [csrfToken]: csrfHash,
-                id_ayah: $('#id_ayah').val(),
                 jenis_kelamin: $('#jenis_kelamin').val()
             },
             success: function(data) {
-                if ($('#id_ayah').val() == '' || $('#jenis_kelamin').val() == '') {
+                if ($('#jenis_kelamin').val() == '') {
                     $.each(data.errors, function(key, value) {
                         $('#' + key).addClass('is-invalid');
                         $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
                     })
+                }
+
+                if ($('#id_ayah').val() == '') {
+                    $(this).removeClass('is-valid');
+                    $(this).parents('.form-group').find('#error').removeClass('invalid-feedback').html(' ')
                 }
             }
         })
