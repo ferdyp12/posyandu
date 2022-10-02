@@ -40,18 +40,20 @@ class Petugas extends BaseController
                 return $this->response->setJSON($data);
             }
 
-            $data = [
+            $petugas = [
                 'nama' => $this->request->getVar('nama'),
                 'id_posyandu' => auth()->id_posyandu,
                 'id_petugas_jabatan' => $this->request->getVar('id_petugas_jabatan')
             ];
 
+            $dataPetugas = $this->modelPetugas->insert($petugas);
+
             $user = [
+                'id_petugas' => $dataPetugas,
                 'username' => $this->request->getVar('username'),
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT)
             ];
 
-            $this->modelPetugas->insert($data);
             $this->modelUser->insert($user);
 
             return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dibuat']);

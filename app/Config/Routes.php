@@ -71,6 +71,7 @@ $routes->get('/imunisasi/(:segment)/view', 'Imunisasi::show/$1');
 $routes->match(['get', 'put'], '/imunisasi/(:segment)/edit', 'Imunisasi::edit/$1');
 $routes->delete('/imunisasi', 'Imunisasi::delete');
 $routes->post('/imunisasi-validation', 'Imunisasi::validation');
+$routes->get('/imunisasi/cek-data', 'Imunisasi::cekDataImunisasi');
 // Jenis Imunisasi
 $routes->get('/jenis-imunisasi', 'JenisImunisasi::index');
 $routes->match(['get', 'post'], '/jenis-imunisasi/create', 'JenisImunisasi::create');
