@@ -61,7 +61,7 @@ $routes->post('/ayah-validation', 'Ayah::validation');
 $routes->get('/ibu-hamil', 'IbuHamil::index');
 $routes->match(['get', 'post'], '/ibu-hamil/create', 'IbuHamil::create');
 $routes->get('/ibu-hamil/(:segment)/view', 'IbuHamil::show/$1');
-$routes->match(['get', 'put'], '/ibu-hamil/(:segment)/edit', 'IbuHamil::edit/$1');
+$routes->match(['get', 'post'], '/ibu-hamil/(:segment)/edit', 'IbuHamil::edit/$1');
 $routes->delete('/ibu-hamil', 'IbuHamil::delete');
 $routes->post('/ibu-hamil-validation', 'IbuHamil::validation');
 // Imunisasi

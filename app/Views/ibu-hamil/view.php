@@ -13,58 +13,85 @@
     <div class="col-md-12">
         <div class="card shadow">
             <div class="card-body">
+                <div class="form-group">
+                    <label for="nama">Nama</label>
+                    <input type="text" class="form-control" value="<?= $ibuHamil->nama; ?>" disabled>
+                </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" value="<?= $ibu_hamil->nama; ?>" disabled>
-                    </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="tinggi_badan">Tinggi Badan</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="tinggi_badan" value="<?= $ibu_hamil->tinggi_badan; ?>" disabled>
+                            <input type="number" class="form-control" value="<?= $ibuHamil->tinggi_badan; ?>" disabled>
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Cm</div>
                             </div>
-
                         </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="berat_badan">Berat Badan</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="berat_badan" value="<?= $ibu_hamil->berat_badan; ?>" disabled>
+                            <input type="text" class="form-control" value="<?= $ibuHamil->berat_badan; ?>" disabled>
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Kg</div>
                             </div>
-
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="lingkar_tangan_atas">Lingkar Tangan Atas</label>
-                        <input type="text" class="form-control" id="lingkar_tangan_atas" value="<?= $ibu_hamil->lingkar_tangan_atas; ?>" disabled>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="lingkar_perut">Lingkar Perut</label>
-                        <input type="text" class="form-control" id="lingkar_perut" value="<?= $ibu_hamil->lingkar_perut; ?>" disabled>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="tekanan_darah">Tekanan Darah</label>
-                        <input type="text" class="form-control" id="tekanan_darah" value="<?= $ibu_hamil->tekanan_darah; ?>" disabled>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="denyut_jantung_bayi">Denyut Jantung Bayi</label>
-                        <input type="text" class="form-control" id="denyut_jantung_bayi" value="<?= $ibu_hamil->denyut_jantung_bayi; ?>" disabled>
-                    </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="tanggal_pemeriksaan">Tanggal Pemeriksaan</label>
-                        <input type="date" class="form-control" id="tanggal_pemeriksaan" value="<?= $ibu_hamil->tanggal_pemeriksaan; ?>" disabled>
+                        <input type="date" class="form-control input" value="<?= $ibuHamil->tanggal_pemeriksaan; ?>" disabled>
                     </div>
                 </div>
+                <?php foreach ($ibuHamilDetail as $row) : ?>
+                    <hr>
+                    <div class="form-group">
+                        <label for="trisemester">Trisemester</label>
+                        <select class="custom-select" disabled>
+                            <option value="">Pilih Trisemester</option>
+                            <?php for ($i = 1; $i <= 3; $i++) : ?>
+                                <option value="<?= $i; ?>" <?= $i == $row->trisemester ? 'selected' : ''; ?>>Trisemester <?= $i; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="timbang">Timbang</label>
+                            <input type="text" class="form-control" value="<?= $row->timbang; ?>" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="ukur_lingkar_lengan_atas">Ukur Lingkar Lengan Atas</label>
+                            <input type="text" class="form-control" value="<?= $row->ukur_lingkar_lengan_atas; ?>" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="tekanan_darah">Tekanan Darah</label>
+                            <input type="text" class="form-control" value="<?= $row->tekanan_darah; ?>" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="periksa_tinggi_rahim">Periksa Tinggi Rahim</label>
+                            <input type="text" class="form-control" value="<?= $row->periksa_tinggi_rahim; ?>" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="periksa_letak_dan_denyut_jantung_janin">Periksa Letak & Denyut Jantung Janin</label>
+                            <input type="text" class="form-control" value="<?= $row->periksa_letak_dan_denyut_jantung_janin; ?>" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="status_dan_imunisasi_tetanus">Status & Imunisasi Tetanus</label>
+                            <input type="text" class="form-control" value="<?= $row->status_dan_imunisasi_tetanus; ?>" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="konseling">Konseling</label>
+                            <input type="text" class="form-control" value="<?= $row->konseling; ?>" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="skrining_dokter">Skrining Dokter</label>
+                            <select class="custom-select" disabled>
+                                <option value="0" <?= $row->skrining_dokter == 0 ? 'selected' : ''; ?>>Tidak</option>
+                                <option value="1" <?= $row->skrining_dokter == 1 ? 'selected' : ''; ?>>Iya</option>
+                            </select>
+                        </div>
+                    </div>
+                <?php endforeach ?>
             </div>
         </div>
     </div>

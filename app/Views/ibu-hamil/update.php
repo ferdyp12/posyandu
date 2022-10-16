@@ -25,35 +25,23 @@
 
 <?= $this->section('script'); ?>
 <script>
-    $('#nama').val('<?= $ibu_hamil->nama; ?>')
-    $('#tinggi_badan').val('<?= $ibu_hamil->tinggi_badan; ?>')
-    $('#berat_badan').val('<?= $ibu_hamil->berat_badan; ?>')
-    $('#lingkar_tangan_atas').val('<?= $ibu_hamil->lingkar_tangan_atas; ?>')
-    $('#lingkar_perut').val('<?= $ibu_hamil->lingkar_perut; ?>')
-    $('#tekanan_darah').val('<?= $ibu_hamil->tekanan_darah; ?>')
-    $('#denyut_jantung_bayi').val('<?= $ibu_hamil->denyut_jantung_bayi; ?>')
-    $('#tanggal_pemeriksaan').val('<?= $ibu_hamil->tanggal_pemeriksaan; ?>')
-
     let csrfToken = '<?= csrf_token(); ?>'
     let csrfHash = '<?= csrf_hash(); ?>'
 
-    $('#form-update-ibuHamil input').on('keyup', function() {
+    $('#form-update-ibuHamil .input').on('change', function() {
+        let formId = $('#form-update-ibuHamil')[0]
+        let formData = new FormData(formId);
+        formData.append([csrfToken], csrfHash)
+
         $.ajax({
             method: 'POST',
             url: '<?= route_to('IbuHamil::validation'); ?>',
-            data: {
-                [csrfToken]: csrfHash,
-                nama: $('#nama').val(),
-                tinggi_badan: $('#tinggi_badan').val(),
-                berat_badan: $('#berat_badan').val(),
-                lingkar_tangan_atas: $('#lingkar_tangan_atas').val(),
-                lingkar_perut: $('#lingkar_perut').val(),
-                tekanan_darah: $('#tekanan_darah').val(),
-                denyut_jantung_bayi: $('#denyut_jantung_bayi').val(),
-                tanggal_pemeriksaan: $('#tanggal_pemeriksaan').val()
-            },
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
             success: function(data) {
-                if ($('#nama').val() == '' || $('#tinggi_badan').val() == '' || $('#berat_badan').val() == '' || $('#lingkar_tangan_atas').val() == '' || $('#lingkar_perut').val() || $('#tekanan_darah').val() || $('#denyut_jantung_bayi').val() || $('#tanggal_pemeriksaan').val() == '') {
+                if ($('#nama').val() == '' || $('#tinggi_badan').val() == '' || $('#berat_badan').val() == '' || $('#tanggal_pemeriksaan').val() == '') {
                     $.each(data.errors, function(key, value) {
                         $('#' + key).addClass('is-invalid');
                         $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
@@ -72,6 +60,9 @@
     $('#form-update-ibuHamil').on('submit', function(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
+        let formId = $('#form-update-ibuHamil')[0]
+        let formData = new FormData(formId);
+        formData.append([csrfToken], csrfHash)
 
         Swal.fire({
             title: "Apakah ada yakin?",
@@ -84,18 +75,10 @@
             preConfirm: () => {
                 return $.ajax({
                     method: "POST",
-                    data: {
-                        [csrfToken]: csrfHash,
-                        _method: 'PUT',
-                        nama: $('#nama').val(),
-                        tinggi_badan: $('#tinggi_badan').val(),
-                        berat_badan: $('#berat_badan').val(),
-                        lingkar_tangan_atas: $('#lingkar_tangan_atas').val(),
-                        lingkar_perut: $('#lingkar_perut').val(),
-                        tekanan_darah: $('#tekanan_darah').val(),
-                        denyut_jantung_bayi: $('#denyut_jantung_bayi').val(),
-                        tanggal_pemeriksaan: $('#tanggal_pemeriksaan').val()
-                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         if (data.success == true) {
                             Swal.fire({
@@ -120,6 +103,7 @@
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.close()
                         var pesan = xhr.status + " " + thrownError + xhr.responseText;
                         alert(pesan)
                     }

@@ -185,30 +185,6 @@ class Validation extends BaseConfig
                 'required' => 'Berat Badan tidak boleh kosong.'
             ],
         ],
-        'lingkar_tangan_atas' => [
-            'rules'  => 'required',
-            'errors' => [
-                'required' => 'Lingkar Tangan Atas tidak boleh kosong.',
-            ],
-        ],
-        'lingkar_perut' => [
-            'rules'  => 'required',
-            'errors' => [
-                'required' => 'Lingkar Perut tidak boleh kosong.',
-            ],
-        ],
-        'tekanan_darah' => [
-            'rules'  => 'required',
-            'errors' => [
-                'required' => 'Tekanan Darah tidak boleh kosong.',
-            ],
-        ],
-        'denyut_jantung_bayi' => [
-            'rules'  => 'required',
-            'errors' => [
-                'required' => 'Denyut Jantung Bayi tidak boleh kosong.'
-            ],
-        ],
         'tanggal_pemeriksaan' => [
             'rules'  => 'required',
             'errors' => [

@@ -9,6 +9,7 @@ class IbuHamil extends BaseController
     public function __construct()
     {
         $this->modelIbuHamil = new \App\Models\IbuHamilModel();
+        $this->modelIbuHamilDetail = new \App\Models\IbuHamilDetailModel();
     }
 
     public function index()
@@ -28,15 +29,17 @@ class IbuHamil extends BaseController
 
     public function show($id_ibu_hamil)
     {
-        $ibu_hamil = $this->modelIbuHamil->find($id_ibu_hamil);
+        $ibuHamil = $this->modelIbuHamil->find($id_ibu_hamil);
+        $ibuHamilDetail = $this->modelIbuHamilDetail->where('id_ibu_hamil', $ibuHamil->id_ibu_hamil)->findAll();
 
-        if ($ibu_hamil->id_posyandu != auth()->id_posyandu) {
+        if ($ibuHamil->id_posyandu != auth()->id_posyandu) {
             return redirect()->to(previous_url());
         }
 
         $data = [
-            'title' => 'Lihat Data Ibu Hamil ' . $ibu_hamil->nama,
-            'ibu_hamil' => $ibu_hamil
+            'title' => 'Lihat Data Ibu Hamil ' . $ibuHamil->nama,
+            'ibuHamil' => $ibuHamil,
+            'ibuHamilDetail' => $ibuHamilDetail,
         ];
 
         return view('ibu-hamil/view', $data);
@@ -55,19 +58,30 @@ class IbuHamil extends BaseController
                 return $this->response->setJSON($data);
             }
 
-            $data = [
+            $dataIbuHamil = [
                 'id_posyandu' => auth()->id_posyandu,
                 'nama' => $this->request->getVar('nama'),
                 'tinggi_badan' => $this->request->getVar('tinggi_badan'),
                 'berat_badan' => $this->request->getVar('berat_badan'),
-                'lingkar_tangan_atas' => $this->request->getVar('lingkar_tangan_atas'),
-                'lingkar_perut' => $this->request->getVar('lingkar_perut'),
-                'tekanan_darah' => $this->request->getVar('tekanan_darah'),
-                'denyut_jantung_bayi' => $this->request->getVar('denyut_jantung_bayi'),
                 'tanggal_pemeriksaan' => $this->request->getVar('tanggal_pemeriksaan')
             ];
 
-            $this->modelIbuHamil->insert($data);
+            $idIbuHamil = $this->modelIbuHamil->insert($dataIbuHamil);
+
+            $dataIbuHamilDetail = [
+                'id_ibu_hamil' => $idIbuHamil,
+                'trisemester' => $this->request->getVar('trisemester'),
+                'timbang' => $this->request->getVar('timbang'),
+                'ukur_lingkar_lengan_atas' => $this->request->getVar('ukur_lingkar_lengan_atas'),
+                'tekanan_darah' => $this->request->getVar('tekanan_darah'),
+                'periksa_tinggi_rahim' => $this->request->getVar('periksa_tinggi_rahim'),
+                'periksa_letak_dan_denyut_jantung_janin' => $this->request->getVar('periksa_letak_dan_denyut_jantung_janin'),
+                'status_dan_imunisasi_tetanus' => $this->request->getVar('status_dan_imunisasi_tetanus'),
+                'konseling' => $this->request->getVar('konseling'),
+                'skrining_dokter' => $this->request->getVar('skrining_dokter')
+            ];
+
+            $this->modelIbuHamilDetail->insert($dataIbuHamilDetail);
 
             return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dibuat']);
         }
@@ -81,43 +95,36 @@ class IbuHamil extends BaseController
 
     public function edit($id_ibu_hamil)
     {
-        $ibu_hamil = $this->modelIbuHamil->find($id_ibu_hamil);
+        $ibuHamil = $this->modelIbuHamil->find($id_ibu_hamil);
+        $ibuHamilDetail = $this->modelIbuHamilDetail->where('id_ibu_hamil', $ibuHamil->id_ibu_hamil)->findAll();
 
-        if ($ibu_hamil->id_posyandu != auth()->id_posyandu) {
+        if ($ibuHamil->id_posyandu != auth()->id_posyandu) {
             return redirect()->to(previous_url());
         }
 
         if ($this->request->isAJAX()) {
-            if ($this->validate('ibu_hamil') === FALSE) {
-                $data = [
-                    'status' => false,
-                    'message' => 'Validasi error',
-                    'errors' => $this->validator->getErrors()
-                ];
-
-                return $this->response->setJSON($data);
-            }
-
-            $data = [
-                'id_posyandu' => auth()->id_posyandu,
-                'nama' => $this->request->getVar('nama'),
-                'tinggi_badan' => $this->request->getVar('tinggi_badan'),
-                'berat_badan' => $this->request->getVar('berat_badan'),
-                'lingkar_tangan_atas' => $this->request->getVar('lingkar_tangan_atas'),
-                'lingkar_perut' => $this->request->getVar('lingkar_perut'),
+            $dataIbuHamilDetail = [
+                'id_ibu_hamil' => $ibuHamil->id_ibu_hamil,
+                'trisemester' => $this->request->getVar('trisemester'),
+                'timbang' => $this->request->getVar('timbang'),
+                'ukur_lingkar_lengan_atas' => $this->request->getVar('ukur_lingkar_lengan_atas'),
                 'tekanan_darah' => $this->request->getVar('tekanan_darah'),
-                'denyut_jantung_bayi' => $this->request->getVar('denyut_jantung_bayi'),
-                'tanggal_pemeriksaan' => $this->request->getVar('tanggal_pemeriksaan')
+                'periksa_tinggi_rahim' => $this->request->getVar('periksa_tinggi_rahim'),
+                'periksa_letak_dan_denyut_jantung_janin' => $this->request->getVar('periksa_letak_dan_denyut_jantung_janin'),
+                'status_dan_imunisasi_tetanus' => $this->request->getVar('status_dan_imunisasi_tetanus'),
+                'konseling' => $this->request->getVar('konseling'),
+                'skrining_dokter' => $this->request->getVar('skrining_dokter')
             ];
 
-            $this->modelIbuHamil->update($ibu_hamil->id_ibu_hamil, $data);
+            $this->modelIbuHamilDetail->insert($dataIbuHamilDetail);
 
-            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $ibu_hamil->nama . ' berhasil diubah!']);
+            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $ibuHamil->nama . ' berhasil ditambah!']);
         }
 
         $data = [
-            'title' => 'Edit Data Ibu Hamil ' . $ibu_hamil->nama,
-            'ibu_hamil' => $ibu_hamil
+            'title' => 'Edit Data Ibu Hamil ' . $ibuHamil->nama,
+            'ibuHamil' => $ibuHamil,
+            'ibuHamilDetail' => $ibuHamilDetail,
         ];
 
         return view('ibu-hamil/update', $data);
@@ -125,14 +132,15 @@ class IbuHamil extends BaseController
 
     public function delete()
     {
-        $id_ibu_hamil = $this->request->getVar('id_ibu_hamil');
-        $ibu_hamil = $this->modelIbuHamil->find($id_ibu_hamil);
+        $idIbuHamil = $this->request->getVar('id_ibu_hamil');
+        $ibu_hamil = $this->modelIbuHamil->find($idIbuHamil);
 
         if ($ibu_hamil->id_posyandu != auth()->id_posyandu) {
             return redirect()->to(previous_url());
         }
 
-        $this->modelIbuHamil->delete($id_ibu_hamil);
+        $this->modelIbuHamilDetail->where('id_ibu_hamil', $idIbuHamil)->delete();
+        $this->modelIbuHamil->delete($idIbuHamil);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
     }

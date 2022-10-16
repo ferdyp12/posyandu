@@ -141,6 +141,7 @@ class Imunisasi extends BaseController
             return redirect()->to(previous_url());
         }
 
+        $this->modelImunisasiDetail->where('id_imunisasi', $id_imunisasi)->delete();
         $this->modelImunisasi->delete($id_imunisasi);
 
         return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dihapus']);
