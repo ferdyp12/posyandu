@@ -25,29 +25,29 @@
 
 <?= $this->section('script'); ?>
 <script>
-    $('#id_anak').val('<?= $imunisasi->id_anak; ?>')
-    $('#id_jenis_imunisasi').val('<?= $imunisasi->id_jenis_imunisasi; ?>')
-    $('#tanggal').val('<?= $imunisasi->tanggal; ?>')
-    $('#keterangan').val('<?= $imunisasi->keterangan; ?>')
-    $('#usia_saat').val('<?= $imunisasi->usia_saat; ?>')
+    $('.table tbody tr:last-child td:first-child').html($('.table tbody tr').length)
 
     let csrfToken = '<?= csrf_token(); ?>'
     let csrfHash = '<?= csrf_hash(); ?>'
 
-    $('#form-update-imunisasi input').on('keyup', function() {
+    $('#form-update-imunisasi .input').on('change', function() {
+        var formId = $('#form-update-imunisasi')[0]
+        var formData = new FormData(formId);
+        formData.append([csrfToken], csrfHash)
+        formData.append('id_anak', <?= $imunisasi->id_anak; ?>)
+
         $.ajax({
             method: 'POST',
             url: '<?= route_to('Imunisasi::validation'); ?>',
-            data: {
-                [csrfToken]: csrfHash,
-                tanggal: $('#tanggal').val(),
-                usia_saat: $('#usia_saat').val()
-            },
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
             success: function(data) {
-                if ($('#tanggal').val() == '' || $('#usia_saat').val() == '') {
+                if ($('.id_jenis_imunisasi').val() == '' || $('.tanggal').val() == '' || $('.bulan').val() == '') {
                     $.each(data.errors, function(key, value) {
-                        $('#' + key).addClass('is-invalid');
-                        $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
+                        $('.' + key).addClass('is-invalid');
+                        $('.' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
                     })
                 }
             }
@@ -63,6 +63,10 @@
     $('#form-update-imunisasi').on('submit', function(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
+        var formId = $('#form-update-imunisasi')[0]
+        var formData = new FormData(formId);
+        formData.append([csrfToken], csrfHash)
+        formData.append('id_anak', <?= $imunisasi->id_anak; ?>)
 
         Swal.fire({
             title: "Apakah ada yakin?",
@@ -75,15 +79,10 @@
             preConfirm: () => {
                 return $.ajax({
                     method: "POST",
-                    data: {
-                        [csrfToken]: csrfHash,
-                        _method: 'PUT',
-                        id_anak: $('#id_anak').val(),
-                        id_jenis_imunisasi: $('#id_jenis_imunisasi').val(),
-                        tanggal: $('#tanggal').val(),
-                        keterangan: $('#keterangan').val(),
-                        usia_saat: $('#usia_saat').val()
-                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         if (data.success == true) {
                             Swal.fire({
@@ -102,12 +101,13 @@
                             });
 
                             $.each(data.errors, function(key, value) {
-                                $('#' + key).addClass('is-invalid');
-                                $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
+                                $('.' + key).addClass('is-invalid');
+                                $('.' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
                             })
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.close()
                         var pesan = xhr.status + " " + thrownError + xhr.responseText;
                         alert(pesan)
                     }

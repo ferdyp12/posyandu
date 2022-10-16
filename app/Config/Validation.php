@@ -218,18 +218,30 @@ class Validation extends BaseConfig
     ];
 
     public $imunisasi = [
+        'id_anak' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Anak tidak boleh kosong.',
+            ],
+        ],
+        'id_jenis_imunisasi' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Jenis Imunisasi tidak boleh kosong.',
+            ],
+        ],
+        'bulan' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Bulan tidak boleh kosong.',
+            ],
+        ],
         'tanggal' => [
             'rules'  => 'required',
             'errors' => [
                 'required' => 'Tanggal tidak boleh kosong.',
             ],
         ],
-        'usia_saat' => [
-            'rules'  => 'required',
-            'errors' => [
-                'required' => 'Usia tidak boleh kosong.'
-            ],
-        ]
     ];
 
     public $jenis_imunisasi = [

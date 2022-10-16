@@ -66,7 +66,14 @@ class Anak extends \App\Controllers\BaseController
                 'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             ];
 
-            $this->modelAnak->insert($data);
+            $idAnak = $this->modelAnak->insert($data);
+
+            $modelImunisasi = new \App\Models\ImunisasiModel();
+
+            $modelImunisasi->insert([
+                'id_posyandu' => auth()->id_posyandu,
+                'id_anak' => $idAnak
+            ]);
 
             return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dibuat']);
         }

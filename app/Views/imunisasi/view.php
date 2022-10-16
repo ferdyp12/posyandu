@@ -13,36 +13,32 @@
     <div class="col-md-12">
         <div class="card shadow">
             <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="id_anak">Anak</label>
-                        <input class="form-control" type="text" id="id_anak" value="<?= $imunisasi->nama_anak; ?>" disabled>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="id_jenis_imunisasi">Jenis Imunisasi</label>
-                        <input class="form-control" type="text" id="id_jenis_imunisasi" value="<?= $imunisasi->nama_imunisasi; ?>" disabled>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="usia_saat">Usia</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="usia_saat" value="<?= $imunisasi->usia_saat; ?>" disabled>
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Tahun</div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="tanggal">Tanggal</label>
-                        <input type="date" class="form-control" id="tanggal" value="<?= $imunisasi->tanggal; ?>" disabled>
-                    </div>
-                </div>
                 <div class="form-group">
-                    <label for="keterangan">Keterangan</label>
-                    <textarea class="form-control" id="keterangan" rows="3" disabled><?= $imunisasi->keterangan; ?></textarea>
-                    <div id="error"></div>
+                    <label for="id_anak">Anak</label>
+                    <input class="form-control" type="text" id="id_anak" value="<?= $imunisasi->nama_anak; ?>" disabled>
+                </div>
+                <div class="table-responsive mt-4">
+                    <table class="table table-bordered">
+                        <thead align="center">
+                            <th>No</th>
+                            <th>Jenis Imunisasi</th>
+                            <th>Bulan Ke-</th>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                        </thead>
+                        <tbody align="center">
+                            <?php $no = 1;
+                            foreach ($imunisasiDetail as $row) : ?>
+                                <tr>
+                                    <td class="align-middle"><?= $no++; ?></td>
+                                    <td class="align-middle"><?= $row->nama; ?></td>
+                                    <td class="align-middle"><?= $row->bulan; ?></td>
+                                    <td class="align-middle"><?= $row->tanggal; ?></td>
+                                    <td class="align-middle"><textarea class="form-control" disabled><?= $row->keterangan; ?></textarea></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

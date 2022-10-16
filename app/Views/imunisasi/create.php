@@ -28,35 +28,39 @@
     let csrfToken = '<?= csrf_token(); ?>'
     let csrfHash = '<?= csrf_hash(); ?>'
 
-    $('#form-create-imunisasi input').on('keyup', function() {
-        $.ajax({
-            method: 'POST',
-            url: '<?= route_to('Imunisasi::validation'); ?>',
-            data: {
-                [csrfToken]: csrfHash,
-                tanggal: $('#tanggal').val(),
-                usia_saat: $('#usia_saat').val()
-            },
-            success: function(data) {
-                if ($('#tanggal').val() == '' || $('#usia_saat').val() == '') {
-                    $.each(data.errors, function(key, value) {
-                        $('#' + key).addClass('is-invalid');
-                        $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
-                    })
-                }
-            }
-        })
+    // $('#form-create-imunisasi input').on('keyup', function() {
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: '<?php //route_to('Imunisasi::validation'); 
+                        ?>',
+    //         data: {
+    //             [csrfToken]: csrfHash,
+    //             usia_saat: $('#usia_saat').val(),
+    //             tanggal: $('#tanggal').val(),
+    //         },
+    //         success: function(data) {
+    //             if ($('#tanggal').val() == '' || $('#usia_saat').val() == '') {
+    //                 $.each(data.errors, function(key, value) {
+    //                     $('#' + key).addClass('is-invalid');
+    //                     $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
+    //                 })
+    //             }
+    //         }
+    //     })
 
-        if ($(this).val() != '') {
-            $(this).removeClass('is-invalid').addClass('is-valid');
-            $(this).parents('.form-group').find('#error').removeClass('invalid-feedback').html(' ')
-        }
+    //     if ($(this).val() != '') {
+    //         $(this).removeClass('is-invalid').addClass('is-valid');
+    //         $(this).parents('.form-group').find('#error').removeClass('invalid-feedback').html(' ')
+    //     }
 
-    });
+    // });
 
     $('#form-create-imunisasi').on('submit', function(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
+        var formId = $('#form-create-imunisasi')[0]
+        var formData = new FormData(formId);
+        formData.append([csrfToken], csrfHash)
 
         Swal.fire({
             title: "Apakah ada yakin?",
@@ -69,14 +73,10 @@
             preConfirm: () => {
                 return $.ajax({
                     method: "POST",
-                    data: {
-                        [csrfToken]: csrfHash,
-                        id_anak: $('#id_anak').val(),
-                        id_jenis_imunisasi: $('#id_jenis_imunisasi').val(),
-                        tanggal: $('#tanggal').val(),
-                        keterangan: $('#keterangan').val(),
-                        usia_saat: $('#usia_saat').val()
-                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         if (data.success == true) {
                             Swal.fire({
@@ -95,12 +95,13 @@
                             });
 
                             $.each(data.errors, function(key, value) {
-                                $('#' + key).addClass('is-invalid');
-                                $('#' + key).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
+                                $('.' + key.replace(/.\d+/g, '')).addClass('is-invalid');
+                                $('.' + key.replace(/.\d+/g, '')).parents('.form-group').find('#error').addClass('invalid-feedback').html(value)
                             })
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.close()
                         var pesan = xhr.status + " " + thrownError + xhr.responseText;
                         alert(pesan)
                     }

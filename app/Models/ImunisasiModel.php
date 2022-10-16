@@ -15,17 +15,15 @@ class ImunisasiModel extends Model
 
     public function getPaginated($num)
     {
-        $this->select(['imunisasi.id_imunisasi', 'imunisasi.id_posyandu', 'anak.nama AS nama_anak', 'jenis_imunisasi.nama AS nama_imunisasi', 'imunisasi.usia_saat', 'imunisasi.tanggal']);
+        $this->select([
+            "imunisasi.id_imunisasi",
+            'imunisasi.id_posyandu',
+            'anak.nama AS nama_anak',
+            "MAX(imunisasi_detail.tanggal) AS tanggal_terakhir"
+        ]);
         $this->join('anak', 'anak.id_anak = imunisasi.id_anak');
-        $this->join('jenis_imunisasi', 'jenis_imunisasi.id_jenis_imunisasi = imunisasi.id_jenis_imunisasi');
+        $this->join('imunisasi_detail', 'imunisasi.id_imunisasi = imunisasi_detail.id_imunisasi', 'left');
+        $this->groupBy('id_imunisasi');
         return $this->paginate($num);
-    }
-
-    public function findforUpdate($id_imunisasi)
-    {
-        $this->select(['imunisasi.*', 'anak.nama AS nama_anak', 'jenis_imunisasi.nama AS nama_imunisasi']);
-        $this->join('anak', 'anak.id_anak = imunisasi.id_anak');
-        $this->join('jenis_imunisasi', 'jenis_imunisasi.id_jenis_imunisasi = imunisasi.id_jenis_imunisasi');
-        return $this->find($id_imunisasi);
     }
 }

@@ -12,6 +12,7 @@ class AyahSeeder extends Seeder
 
         for ($i = 0; $i < 35; $i++) {
             $data = [
+                'id_posyandu' => 1,
                 'nama' => $faker->name('male'),
                 'kk' => $faker->randomNumber(9),
                 'nik' => $faker->randomNumber(9),

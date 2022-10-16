@@ -19,9 +19,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>Jenis Imunisasi</th>
-                                <th>Usia Saat Imunisasi</th>
-                                <th>Tanggal Imunisasi</th>
+                                <th>Terakhir Imunisasi Tanggal</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -32,9 +30,7 @@
                                 <tr>
                                     <th><?= $nomor; ?></th>
                                     <td><?= $row->nama_anak; ?></td>
-                                    <td><?= $row->nama_imunisasi; ?></td>
-                                    <td><?= $row->usia_saat; ?> Tahun</td>
-                                    <td><?= $row->tanggal; ?></td>
+                                    <td><?= $row->tanggal_terakhir ?: 'Belum Imunisasi'; ?></td>
                                     <td>
                                         <a class="btn-sm btn-info" href="<?= route_to('Imunisasi::show', $row->id_imunisasi); ?>" data-toggle="tooltip" title="View"><i class="fas fa-eye"></i></a>
                                         <a class="btn-sm btn-warning" href="<?= route_to('Imunisasi::edit', $row->id_imunisasi); ?>" data-toggle="tooltip" title="Update"><i class="fas fa-pen" title="Update"></i></a>

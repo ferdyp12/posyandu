@@ -9,6 +9,7 @@ class Imunisasi extends BaseController
     public function __construct()
     {
         $this->modelImunisasi = new \App\Models\ImunisasiModel();
+        $this->modelImunisasiDetail = new \App\Models\ImunisasiDetailModel();
     }
 
     public function index()
@@ -28,7 +29,8 @@ class Imunisasi extends BaseController
 
     public function show($id_imunisasi)
     {
-        $imunisasi = $this->modelImunisasi->findforUpdate($id_imunisasi);
+        $imunisasi = $this->modelImunisasi->select(['imunisasi.id_imunisasi', 'imunisasi.id_posyandu', 'anak.nama AS nama_anak'])->join('anak', 'imunisasi.id_anak = anak.id_anak')->find($id_imunisasi);
+        $imunisasiDetail = $this->modelImunisasiDetail->select(['jenis_imunisasi.nama', 'imunisasi_detail.bulan', 'imunisasi_detail.tanggal', 'imunisasi_detail.keterangan'])->join('jenis_imunisasi', 'jenis_imunisasi.id_jenis_imunisasi = imunisasi_detail.id_jenis_imunisasi')->where('id_imunisasi', $id_imunisasi)->findAll();
 
         if ($imunisasi->id_posyandu != auth()->id_posyandu) {
             return redirect()->to(previous_url());
@@ -36,7 +38,8 @@ class Imunisasi extends BaseController
 
         $data = [
             'title' => 'Lihat Data Imunisasi ' . $imunisasi->nama_anak,
-            'imunisasi' => $imunisasi
+            'imunisasi' => $imunisasi,
+            'imunisasiDetail' => $imunisasiDetail
         ];
 
         return view('imunisasi/view', $data);
@@ -55,16 +58,22 @@ class Imunisasi extends BaseController
                 return $this->response->setJSON($data);
             }
 
-            $data = [
+            $dataImunisasi = [
                 'id_posyandu' => auth()->id_posyandu,
                 'id_anak' => $this->request->getVar('id_anak'),
-                'id_jenis_imunisasi' => $this->request->getVar('id_jenis_imunisasi'),
-                'tanggal' => $this->request->getVar('tanggal'),
-                'keterangan' => $this->request->getVar('keterangan'),
-                'usia_saat' => $this->request->getVar('usia_saat')
             ];
 
-            $this->modelImunisasi->insert($data);
+            $id_imunisasi = $this->modelImunisasi->insert($dataImunisasi);
+
+            $dataImunisasiDetail = [
+                'id_imunisasi' => $id_imunisasi,
+                'id_jenis_imunisasi' => $this->request->getVar('id_jenis_imunisasi'),
+                'bulan' => $this->request->getVar('bulan'),
+                'tanggal' => $this->request->getVar('tanggal'),
+                'keterangan' => $this->request->getVar('keterangan')
+            ];
+
+            $this->modelImunisasiDetail->insert($dataImunisasiDetail);
 
             return $this->response->setJSON(['success' => true, 'message' => 'Data Berhasil Dibuat']);
         }
@@ -78,7 +87,8 @@ class Imunisasi extends BaseController
 
     public function edit($id_imunisasi)
     {
-        $imunisasi = $this->modelImunisasi->findforUpdate($id_imunisasi);
+        $imunisasi = $this->modelImunisasi->select(['imunisasi.*', 'anak.nama AS nama_anak',])->join('anak', 'imunisasi.id_anak = anak.id_anak')->find($id_imunisasi);
+        $imunisasiDetail = $this->modelImunisasiDetail->select(['jenis_imunisasi.id_jenis_imunisasi', 'jenis_imunisasi.nama', 'imunisasi_detail.bulan', 'imunisasi_detail.tanggal', 'imunisasi_detail.keterangan'])->join('jenis_imunisasi', 'jenis_imunisasi.id_jenis_imunisasi = imunisasi_detail.id_jenis_imunisasi')->where('id_imunisasi', $id_imunisasi)->findAll();
 
         if ($imunisasi->id_posyandu != auth()->id_posyandu) {
             return redirect()->to(previous_url());
@@ -95,22 +105,28 @@ class Imunisasi extends BaseController
                 return $this->response->setJSON($data);
             }
 
-            $data = [
-                'id_anak' => $this->request->getVar('id_anak'),
+            $dataImunisasiDetail = [
+                'id_imunisasi' => $imunisasi->id_imunisasi,
                 'id_jenis_imunisasi' => $this->request->getVar('id_jenis_imunisasi'),
+                'bulan' => $this->request->getVar('bulan'),
                 'tanggal' => $this->request->getVar('tanggal'),
-                'keterangan' => $this->request->getVar('keterangan'),
-                'usia_saat' => $this->request->getVar('usia_saat')
+                'keterangan' => $this->request->getVar('keterangan')
             ];
 
-            $this->modelImunisasi->update($imunisasi->id_imunisasi, $data);
+            echo '<pre>';
+            var_dump($dataImunisasiDetail);
+            echo '</pre>';
+            exit;
 
-            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $imunisasi->nama_anak . ' berhasil diubah!']);
+            $this->modelImunisasiDetail->insert($dataImunisasiDetail);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Data ' . $imunisasi->nama_anak . ' berhasil ditambah!']);
         }
 
         $data = [
             'title' => 'Edit Data Imunisasi ' . $imunisasi->nama_anak,
-            'imunisasi' => $imunisasi
+            'imunisasi' => $imunisasi,
+            'imunisasiDetail' => $imunisasiDetail
         ];
 
         return view('imunisasi/update', $data);
